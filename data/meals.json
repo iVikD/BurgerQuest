@@ -45,15 +45,15 @@
   {
     "name": "Vicio",
     "category": "burger",
-    "rating": 5,
-    "price": 0,
+    "rating": 7,
+    "price": 11.90,
     "is_burger": true,
-    "comment": "Normal cheeseburger.",
+    "comment": "Normal cheeseburger. Delivery.",
     "items": [
-      "normal cheeseburger"
+      "Vicio Originals Cheeseburger"
     ],
     "sender": "Victor",
-    "timestamp": "2026-01-04T21:24:38",
+    "timestamp": "2026-01-03T22:24:38",
     "image_paths": [],
     "image_path": null,
     "gps": null
@@ -62,14 +62,14 @@
     "name": "Foster’s",
     "category": "burger",
     "rating": 4,
-    "price": 0,
+    "price": 17.95,
     "is_burger": true,
     "comment": "Smash burger. Pricey.",
     "items": [
       "smash burger"
     ],
     "sender": "Victor",
-    "timestamp": "2026-01-04T21:25:00",
+    "timestamp": "2026-01-04T14:25:00",
     "image_paths": [],
     "image_path": null,
     "gps": null
@@ -132,6 +132,42 @@
       "assets/images/photo_8@25-01-2026_11-22-46.jpg"
     ],
     "image_path": "assets/images/photo_7@25-01-2026_11-22-46.jpg",
+    "gps": null
+  },
+  {
+    "name": "Burger King",
+    "category": "burger",
+    "rating": 6,
+    "price": 12,
+    "is_burger": true,
+    "comment": "The usual Crispy Chicken",
+    "items": [
+      "Crispy Chicken"
+    ],
+    "sender": "Victor",
+    "timestamp": "2026-01-16T22:30:31",
+    "image_paths": [
+      ""
+    ],
+    "image_path": "",
+    "gps": null
+  },
+  {
+    "name": "Ombuuxu",
+    "category": "burger",
+    "rating": 6,
+    "price": 4.9,
+    "is_burger": true,
+    "comment": "Burger at work, nothing special.",
+    "items": [
+      "Cheeseburger"
+    ],
+    "sender": "Victor",
+    "timestamp": "2026-01-16T13:30:31",
+    "image_paths": [
+      ""
+    ],
+    "image_path": "",
     "gps": null
   }
 ]
