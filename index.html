@@ -151,60 +151,101 @@
 
     <script>
         async function init() {
-            const res = await fetch('./data/meals.json');
-            const data = await res.json();
-            const burgers = data.filter(m => m.is_burger);
+            try {
+                const res = await fetch('./data/meals.json');
+                const data = await res.json();
 
-            // 1. Identify Hunters
-            const hunters = [...new Set(burgers.map(b => b.sender || 'Unknown'))];
-            const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                // Data Cleanup: Ensure every item has a sender and a category
+                const cleanData = data.map(item => ({
+                    ...item,
+                    sender: item.sender || 'Unknown Hunter',
+                    is_burger: item.is_burger || item.category === 'burger'
+                }));
 
-            // 2. Prepare Chart Data
-            const datasets = hunters.map((name, index) => {
-                const counts = new Array(12).fill(0);
-                burgers.filter(b => (b.sender || 'Unknown') === name).forEach(b => {
-                    counts[new Date(b.timestamp).getMonth()]++;
+                const burgers = cleanData.filter(m => m.is_burger);
+                const others = cleanData.filter(m => !m.is_burger);
+
+                // 1. Stats & Leaderboard
+                const hunterCounts = burgers.reduce((acc, b) => {
+                    acc[b.sender] = (acc[b.sender] || 0) + 1;
+                    return acc;
+                }, {});
+
+                const sortedHunters = Object.entries(hunterCounts).sort((a, b) => b[1] - a[1]);
+                const topHunter = sortedHunters[0];
+
+                document.getElementById('top-hunter').innerText = topHunter ? `${topHunter[0]} (${topHunter[1]})` : '--';
+                document.getElementById('b-total').innerText = burgers.length;
+                document.getElementById('b-avg').innerText = (burgers.reduce((a, b) => a + b.rating, 0) / (burgers.length || 1)).toFixed(1);
+
+                // 2. Battle Chart
+                const hunters = [...new Set(burgers.map(b => b.sender))];
+                const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                const colors = ['#f59e0b', '#3b82f6', '#10b981', '#ef4444'];
+
+                const datasets = hunters.map((name, index) => {
+                    const counts = new Array(12).fill(0);
+                    burgers.filter(b => b.sender === name).forEach(b => {
+                        counts[new Date(b.timestamp).getMonth()]++;
+                    });
+                    return {
+                        label: name,
+                        data: counts,
+                        backgroundColor: colors[index % colors.length]
+                    };
                 });
-                const colors = ['#f59e0b', '#3b82f6', '#10b981']; // Gold, Blue, Green
-                return {
-                    label: name,
-                    data: counts,
-                    backgroundColor: colors[index % colors.length],
-                    stack: 'combined'
+
+                new Chart(document.getElementById('battleChart'), {
+                    type: 'bar',
+                    data: { labels: months, datasets: datasets },
+                    options: {
+                        scales: { x: { stacked: true }, y: { stacked: true } },
+                        plugins: { legend: { labels: { color: '#fff' } } }
+                    }
+                });
+
+                // 3. Map Initialization
+                const map = L.map('map').setView([41.38, 2.17], 12);
+                L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(map);
+
+                // 4. Helper Function to Render Galleries
+                const renderGallery = (items, containerId) => {
+                    const container = document.getElementById(containerId);
+                    container.innerHTML = ''; // Clear it
+                    items.slice().reverse().forEach(item => {
+                        const imgPath = item.image_path ? item.image_path : 'https://via.placeholder.com/400x300?text=No+Photo';
+
+                        container.innerHTML += `
+                    <div class="food-card">
+                        <div style="position:absolute; top:10px; left:10px; background:rgba(0,0,0,0.8); padding:5px 10px; font-size:12px; border-radius:5px; border:1px solid #444;">👤 ${item.sender}</div>
+                        <img src="${imgPath}" class="food-img" onerror="this.src='https://via.placeholder.com/400x300?text=Image+Loading...'">
+                        <div class="food-info">
+                            <span class="rating-badge">${item.rating}/10</span>
+                            <h3 style="margin: 10px 0 5px 0;">${item.name || 'Unknown Spot'}</h3>
+                            <p style="font-size: 0.9em; opacity: 0.8; height: 40px; overflow: hidden;">${item.comment || ''}</p>
+                            <div style="display:flex; justify-content:space-between; font-weight:bold;">
+                                <span>${item.price || '?'}€</span>
+                                <span style="opacity:0.5">${new Date(item.timestamp).toLocaleDateString()}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                        // Add to Map if GPS exists
+                        if (item.gps && item.gps.lat) {
+                            L.marker([item.gps.lat, item.gps.lng])
+                                .addTo(map)
+                                .bindPopup(`<b>${item.name}</b><br><img src="${imgPath}" class="map-thumb">`);
+                        }
+                    });
                 };
-            });
 
-            new Chart(document.getElementById('battleChart'), {
-                type: 'bar',
-                data: { labels: months, datasets: datasets },
-                options: {
-                    scales: { x: { stacked: true }, y: { stacked: true } },
-                    plugins: { legend: { labels: { color: '#fff' } } }
-                }
-            });
+                renderGallery(burgers, 'burger-gallery');
+                renderGallery(others, 'other-gallery');
 
-            // 3. Stats & Leaderboard
-            const hunterCounts = burgers.reduce((acc, b) => {
-                acc[b.sender] = (acc[b.sender] || 0) + 1;
-                return acc;
-            }, {});
-
-            const topHunter = Object.entries(hunterCounts).sort((a, b) => b[1] - a[1])[0];
-            document.getElementById('top-hunter').innerText = topHunter ? `${topHunter[0]} (${topHunter[1]})` : '--';
-            document.getElementById('b-total').innerText = burgers.length;
-            document.getElementById('b-avg').innerText = (burgers.reduce((a, b) => a + b.rating, 0) / burgers.length || 0).toFixed(1);
-
-            // 4. Update Gallery with Sender Tags
-            const container = document.getElementById('burger-gallery');
-            burgers.reverse().forEach(item => {
-                const img = item.image_path || 'https://via.placeholder.com/400x300';
-                container.innerHTML += `
-            <div class="food-card">
-                <div style="position:absolute; background:rgba(0,0,0,0.7); padding:5px 10px; font-size:12px;">👤 ${item.sender}</div>
-                <img src="${img}" class="food-img">
-                </div>
-        `;
-            });
+            } catch (err) {
+                console.error("Dashboard Init Error:", err);
+            }
         }
         init();
     </script>
