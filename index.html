@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,31 +9,107 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <style>
-        :root { --bg: #0f172a; --card: #1e293b; --text: #f8fafc; --accent: #f59e0b; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; }
-        .container { max-width: 1100px; margin: auto; }
-        
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --text: #f8fafc;
+            --accent: #f59e0b;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
         /* Stats & Header */
-        header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
-        .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px; }
-        .stat-card { background: var(--card); padding: 20px; border-radius: 12px; border-left: 4px solid var(--accent); }
-        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--card);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent);
+        }
+
         /* The Map */
-        #map { height: 400px; border-radius: 16px; margin-bottom: 40px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.5); }
+        #map {
+            height: 400px;
+            border-radius: 16px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+        }
 
         /* Burger Gallery */
-        .burger-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .food-card { background: var(--card); border-radius: 12px; overflow: hidden; transition: transform 0.2s; }
-        .food-card:hover { transform: translateY(-5px); }
-        .food-img { width: 100%; height: 200px; object-fit: cover; background: #334155; }
-        .food-info { padding: 15px; }
-        .rating-badge { background: var(--accent); color: #000; padding: 2px 8px; border-radius: 6px; font-weight: bold; }
-        
+        .burger-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .food-card {
+            background: var(--card);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+
+        .food-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .food-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: #334155;
+        }
+
+        .food-info {
+            padding: 15px;
+        }
+
+        .rating-badge {
+            background: var(--accent);
+            color: #000;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
         /* Leaflet Popup Fix */
-        .leaflet-popup-content-wrapper { background: var(--card); color: var(--text); }
-        .map-thumb { width: 100px; border-radius: 4px; margin-top: 5px; }
+        .leaflet-popup-content-wrapper {
+            background: var(--card);
+            color: var(--text);
+        }
+
+        .map-thumb {
+            width: 100px;
+            border-radius: 4px;
+            margin-top: 5px;
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
         <header>
@@ -40,9 +117,23 @@
         </header>
 
         <div class="stats-row">
-            <div class="stat-card"><h3>Total Burgers</h3><h2 id="b-total">0</h2></div>
-            <div class="stat-card"><h3>Avg. Rating</h3><h2 id="b-avg">0</h2></div>
-            <div class="stat-card"><h3>Total Spent</h3><h2 id="b-spent">0€</h2></div>
+            <div class="stat-card">
+                <h3>Total Burgers</h3>
+                <h2 id="b-total">0</h2>
+            </div>
+            <div class="stat-card">
+                <h3>Top Hunter</h3>
+                <h2 id="top-hunter">--</h2>
+            </div>
+            <div class="stat-card">
+                <h3>Global Avg</h3>
+                <h2 id="b-avg">0</h2>
+            </div>
+        </div>
+
+        <div class="card" style="background: var(--card); padding: 20px; border-radius: 12px; margin-bottom: 30px;">
+            <h2>⚔️ Burger Battle: Monthly Breakdown</h2>
+            <canvas id="battleChart" style="max-height: 300px;"></canvas>
         </div>
 
         <div id="map"></div>
@@ -62,52 +153,61 @@
         async function init() {
             const res = await fetch('./data/meals.json');
             const data = await res.json();
-
-            // Stats Logic
             const burgers = data.filter(m => m.is_burger);
-            const others = data.filter(m => !m.is_burger);
+
+            // 1. Identify Hunters
+            const hunters = [...new Set(burgers.map(b => b.sender || 'Unknown'))];
+            const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+            // 2. Prepare Chart Data
+            const datasets = hunters.map((name, index) => {
+                const counts = new Array(12).fill(0);
+                burgers.filter(b => (b.sender || 'Unknown') === name).forEach(b => {
+                    counts[new Date(b.timestamp).getMonth()]++;
+                });
+                const colors = ['#f59e0b', '#3b82f6', '#10b981']; // Gold, Blue, Green
+                return {
+                    label: name,
+                    data: counts,
+                    backgroundColor: colors[index % colors.length],
+                    stack: 'combined'
+                };
+            });
+
+            new Chart(document.getElementById('battleChart'), {
+                type: 'bar',
+                data: { labels: months, datasets: datasets },
+                options: {
+                    scales: { x: { stacked: true }, y: { stacked: true } },
+                    plugins: { legend: { labels: { color: '#fff' } } }
+                }
+            });
+
+            // 3. Stats & Leaderboard
+            const hunterCounts = burgers.reduce((acc, b) => {
+                acc[b.sender] = (acc[b.sender] || 0) + 1;
+                return acc;
+            }, {});
+
+            const topHunter = Object.entries(hunterCounts).sort((a, b) => b[1] - a[1])[0];
+            document.getElementById('top-hunter').innerText = topHunter ? `${topHunter[0]} (${topHunter[1]})` : '--';
             document.getElementById('b-total').innerText = burgers.length;
-            document.getElementById('b-spent').innerText = burgers.reduce((a, b) => a + (b.price || 0), 0).toFixed(2) + '€';
             document.getElementById('b-avg').innerText = (burgers.reduce((a, b) => a + b.rating, 0) / burgers.length || 0).toFixed(1);
 
-            // Map Logic
-            const map = L.map('map').setView([41.38, 2.17], 12);
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(map);
-
-            function createGallery(items, containerId) {
-                const container = document.getElementById(containerId);
-                items.reverse().forEach(item => {
-                    const img = item.image_path ? item.image_path : 'https://via.placeholder.com/400x300?text=No+Photo';
-                    
-                    // Add to Gallery
-                    container.innerHTML += `
-                        <div class="food-card">
-                            <img src="${img}" class="food-img" alt="${item.name}">
-                            <div class="food-info">
-                                <span class="rating-badge">${item.rating}/10</span>
-                                <h3 style="margin: 10px 0 5px 0;">${item.name}</h3>
-                                <p style="font-size: 0.9em; opacity: 0.8;">${item.comment}</p>
-                                <div style="display:flex; justify-content:space-between; font-weight:bold;">
-                                    <span>${item.price}€</span>
-                                    <span style="opacity:0.5">${new Date(item.timestamp).toLocaleDateString()}</span>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-
-                    // Add to Map if GPS exists
-                    if(item.gps) {
-                        L.marker([item.gps.lat, item.gps.lng])
-                         .addTo(map)
-                         .bindPopup(`<b>${item.name}</b><br><img src="${img}" class="map-thumb">`);
-                    }
-                });
-            }
-
-            createGallery(burgers, 'burger-gallery');
-            createGallery(others, 'other-gallery');
+            // 4. Update Gallery with Sender Tags
+            const container = document.getElementById('burger-gallery');
+            burgers.reverse().forEach(item => {
+                const img = item.image_path || 'https://via.placeholder.com/400x300';
+                container.innerHTML += `
+            <div class="food-card">
+                <div style="position:absolute; background:rgba(0,0,0,0.7); padding:5px 10px; font-size:12px;">👤 ${item.sender}</div>
+                <img src="${img}" class="food-img">
+                </div>
+        `;
+            });
         }
         init();
     </script>
 </body>
+
 </html>

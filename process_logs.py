@@ -85,6 +85,10 @@ async def main():
         image_content = None
         local_path = None
 
+        # Get sender info
+        user = msg.from_user
+        sender_name = user.first_name if user else "Unknown Hunter"
+
         # Download image if exists
         if msg.photo:
             photo = msg.photo[-1]
