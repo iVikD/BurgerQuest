@@ -1,13 +1,15 @@
 import os
 import json
 import asyncio
+import sys
+from datetime import datetime
 from google import genai
 from google.genai import types
 from telegram import Bot
 from PIL import Image
 from PIL.ExifTags import TAGS, GPSTAGS
 
-# --- SECRETS (Replace these) ---
+# --- CONFIGURATION ---
 TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN")
 GEMINI_KEY = os.environ.get("GEMINI_KEY")
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
@@ -15,15 +17,13 @@ MODEL_ID = 'gemini-2.0-flash'
 
 if not all([TELEGRAM_TOKEN, TELEGRAM_CHAT_ID, GEMINI_KEY]):
     print("❌ ERROR: Missing one or more environment variables.")
-    print(
-        f"Token present: {bool(TELEGRAM_TOKEN)}, Chat ID: {bool(CHAT_ID)}, Gemini: {bool(GEMINI_KEY)}")
-    sys.exit(1)  # Stop the action here
+    sys.exit(1)
 
 client = genai.Client(api_key=GEMINI_KEY)
 
 SYSTEM_PROMPT = """
-Analyze this food-related chat message and image.
-Return a ONLY a JSON object with: 
+Analyze this food-related chat message and image(s).
+Return ONLY a JSON object with: 
 {
   "name": "restaurant name",
   "category": "burger" or "other",
@@ -35,91 +35,85 @@ Return a ONLY a JSON object with:
 }
 """
 
-
 def get_gps_location(file_path):
     """Extracts GPS coordinates from image EXIF data."""
     try:
-        img = Image.open(file_path)
-        exif_data = img._getexif()
-        if not exif_data:
-            return None
-
-        gps_info = {}
-        for tag, value in exif_data.items():
-            decoded = TAGS.get(tag, tag)
-            if decoded == "GPSInfo":
-                for t in value:
-                    sub_tag = GPSTAGS.get(t, t)
-                    gps_info[sub_tag] = value[t]
-
-        if "GPSLatitude" in gps_info:
-            def to_deg(value):
-                d = float(value[0])
-                m = float(value[1])
-                s = float(value[2])
-                return d + (m / 60.0) + (s / 3600.0)
-
-            lat = to_deg(gps_info["GPSLatitude"])
-            lng = to_deg(gps_info["GPSLongitude"])
-            return {"lat": lat, "lng": lng}
-    except Exception:
-        return None
+        with Image.open(file_path) as img:
+            exif_data = img._getexif()
+            if not exif_data: return None
+            gps_info = {}
+            for tag, value in exif_data.items():
+                decoded = TAGS.get(tag, tag)
+                if decoded == "GPSInfo":
+                    for t in value:
+                        sub_tag = GPSTAGS.get(t, t)
+                        gps_info[sub_tag] = value[t]
+            if "GPSLatitude" in gps_info:
+                def to_deg(value):
+                    d = float(value[0]); m = float(value[1]); s = float(value[2])
+                    return d + (m / 60.0) + (s / 3600.0)
+                lat = to_deg(gps_info["GPSLatitude"])
+                lng = to_deg(gps_info["GPSLongitude"])
+                if gps_info.get("GPSLatitudeRef") == "S": lat = -lat
+                if gps_info.get("GPSLongitudeRef") == "W": lng = -lng
+                return {"lat": lat, "lng": lng}
+    except Exception: return None
     return None
-
 
 async def main():
     bot = Bot(token=TELEGRAM_TOKEN)
     updates = await bot.get_updates()
 
-    # Ensure directories exist
     os.makedirs("data", exist_ok=True)
     os.makedirs("assets/images", exist_ok=True)
 
-    # Load existing database
     db_path = 'data/meals.json'
-    db = json.load(open(db_path)) if os.path.exists(db_path) else []
+    # Fail-safe loading
+    if os.path.exists(db_path):
+        try:
+            with open(db_path, 'r') as f:
+                db = json.load(f)
+        except: db = []
+    else: db = []
+
     processed_ids = {entry.get('msg_id') for entry in db}
+    
+    # --- BUFFERING LOGIC ---
+    # Group messages by media_group_id to save Gemini costs
+    groups = {}
 
     for update in updates:
         msg = update.message
         if not msg or str(msg.chat_id) != TELEGRAM_CHAT_ID or msg.message_id in processed_ids:
             continue
+        
+        # Unique key for grouping: media_group_id or just message_id for singles
+        group_id = msg.media_group_id if msg.media_group_id else f"single_{msg.message_id}"
+        
+        if group_id not in groups:
+            groups[group_id] = {"msgs": [], "paths": []}
+        groups[group_id]["msgs"].append(msg)
 
-        text = msg.text or msg.caption or "Food photo"
-        image_content = None
-        local_path = None
+    for group_id, data in groups.items():
+        main_msg = data["msgs"][0]
+        sender = main_msg.from_user.first_name if main_msg.from_user else "Unknown Hunter"
+        
+        # Extract full text from all messages in group
+        combined_text = " ".join(filter(None, [m.text or m.caption for m in data["msgs"]])) or "Food photo"
+        
+        # Download all photos in the group
+        for m in data["msgs"]:
+            if m.photo:
+                photo = m.photo[-1]
+                tg_file = await bot.get_file(photo.file_id)
+                path = f"assets/images/{photo.file_unique_id}.jpg"
+                await tg_file.download_to_drive(path)
+                data["paths"].append(path)
 
-        # Get sender info
-        user = msg.from_user
-        sender_name = user.first_name if user else "Unknown Hunter"
-
-        # Download image if exists
-        if msg.photo:
-            photo = msg.photo[-1]
-            tg_file = await bot.get_file(photo.file_id)
-            # Use photo.file_unique_id to prevent naming collisions
-            local_path = f"assets/images/{photo.file_unique_id}.jpg"
-            await tg_file.download_to_drive(local_path)
-
-            # Check if this message is part of a group we just processed
-            existing_entry = next((item for item in db if item.get(
-                'media_group_id') == msg.media_group_id), None)
-
-            if existing_entry and msg.media_group_id:
-                # Just add the image to the existing entry
-                if 'image_paths' not in existing_entry:
-                    existing_entry['image_paths'] = [existing_entry.pop('image_path')]
-                existing_entry['image_paths'].append(local_path)
-            else:
-                # Create a new entry as usual, but use a list for images
-                entry['image_paths'] = [local_path]
-                entry['media_group_id'] = msg.media_group_id
-
-        # Call Gemini
-        contents = [text]
-        if image_content:
-            contents.append(types.Part.from_bytes(
-                data=image_content, mime_type='image/jpeg'))
+        # Call Gemini with all photos at once
+        contents = [combined_text]
+        for p in data["paths"]:
+            contents.append(Image.open(p))
 
         try:
             response = client.models.generate_content(
@@ -132,17 +126,21 @@ async def main():
             )
 
             entry = json.loads(response.text)
-            entry['sender'] = sender_name
-            entry['msg_id'] = msg.message_id
-            entry['timestamp'] = msg.date.isoformat()
-            entry['image_path'] = local_path
-            entry['gps'] = get_gps_location(local_path) if local_path else None
+            entry['sender'] = sender
+            entry['msg_id'] = main_msg.message_id
+            entry['timestamp'] = main_msg.date.isoformat()
+            # Store all paths for the dashboard gallery
+            entry['image_paths'] = data["paths"]
+            # Primary image for the cover
+            entry['image_path'] = data["paths"][0] if data["paths"] else None
+            # GPS from the first photo
+            entry['gps'] = get_gps_location(data["paths"][0]) if data["paths"] else None
 
             db.append(entry)
-            print(f"✅ Success: Logged {entry['name']}")
+            print(f"✅ Success: Logged {entry['name']} from {sender}")
 
         except Exception as e:
-            print(f"⚠️ Error processing message {msg.message_id}: {e}")
+            print(f"⚠️ Error processing group {group_id}: {e}")
 
     # Save final DB
     with open(db_path, 'w') as f:
