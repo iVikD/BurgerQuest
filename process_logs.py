@@ -114,6 +114,7 @@ async def main():
             )
             
             entry = json.loads(response.text)
+            entry['sender'] = sender_name
             entry['msg_id'] = msg.message_id
             entry['timestamp'] = msg.date.isoformat()
             entry['image_path'] = local_path
