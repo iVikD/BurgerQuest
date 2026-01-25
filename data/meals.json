@@ -1,1 +1,93 @@
-[]
+[
+  {
+    "name": "Palki Restaurante",
+    "category": "Indian",
+    "rating": 8,
+    "price": 53.0,
+    "is_burger": false,
+    "comment": "Indian food: tikka masala, lamb, cheese naan.",
+    "items": ["onion baji", "pollo tikka masala", "madras lamb", "arroz keshmir", "pan naan de queso"],
+    "sender": "Jaqueline Gavotti",
+    "timestamp": "2026-01-03T00:10:51",
+    "image_path": "assets/images/photo_1@03-01-2026_00-10-51.jpg",
+    "gps": null
+  },
+  {
+    "name": "Dos Coyotes",
+    "category": "Mexican",
+    "rating": 8,
+    "price": 19.9,
+    "is_burger": false,
+    "comment": "Mexican Birriería. Beef tacos were the best.",
+    "items": ["nachos", "tacos tres carnes"],
+    "sender": "Jaqueline Gavotti",
+    "timestamp": "2026-01-03T22:20:48",
+    "image_path": "assets/images/photo_2@03-01-2026_22-20-48.jpg",
+    "gps": null
+  },
+  {
+    "name": "Vicio",
+    "category": "burger",
+    "rating": 5,
+    "price": 0,
+    "is_burger": true,
+    "comment": "Normal cheeseburger. Need more data.",
+    "items": ["normal cheeseburger"],
+    "sender": "Victor De Gouveia",
+    "timestamp": "2026-01-04T21:24:38",
+    "image_path": null,
+    "gps": null
+  },
+  {
+    "name": "Foster’s",
+    "category": "burger",
+    "rating": 4,
+    "price": 0,
+    "is_burger": true,
+    "comment": "Smash burger. Not great, pricey.",
+    "items": ["smash burger"],
+    "sender": "Victor De Gouveia",
+    "timestamp": "2026-01-04T21:25:00",
+    "image_path": null,
+    "gps": null
+  },
+  {
+    "name": "Udon",
+    "category": "Japanese",
+    "rating": 7,
+    "price": 18.6,
+    "is_burger": false,
+    "comment": "Tantanmen ramen was very good.",
+    "items": ["Tantanmen ramen", "Curry ternera", "takoyaki"],
+    "sender": "Jaqueline Gavotti",
+    "timestamp": "2026-01-18T17:54:31",
+    "image_path": "assets/images/photo_4@18-01-2026_17-54-31.jpg",
+    "gps": null
+  },
+  {
+    "name": "Ramen ENSI",
+    "category": "Japanese",
+    "rating": 8,
+    "price": 20.0,
+    "is_burger": false,
+    "comment": "Shio ramen con ajitama. Los duelos japoneses.",
+    "items": ["Shio ramen", "Takoyaki"],
+    "sender": "Jaqueline Gavotti",
+    "timestamp": "2026-01-21T21:15:31",
+    "image_path": "assets/images/photo_6@21-01-2026_21-15-31.jpg",
+    "gps": null
+  },
+  {
+    "name": "DIVERSUM DAGANZO",
+    "category": "burger",
+    "rating": 2,
+    "price": 40.0,
+    "is_burger": true,
+    "comment": "Terrible, we didn’t like it.",
+    "items": ["2x smash burger", "tequeños"],
+    "sender": "Jaqueline Gavotti",
+    "timestamp": "2026-01-25T11:22:46",
+    "image_path": "assets/images/photo_7@25-01-2026_11-22-46.jpg",
+    "gps": null
+  }
+]
