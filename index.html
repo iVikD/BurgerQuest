@@ -211,35 +211,21 @@
                 // 4. Helper Function to Render Galleries
                 const renderGallery = (items, containerId) => {
                     const container = document.getElementById(containerId);
-                    container.innerHTML = ''; // Clear it
                     items.slice().reverse().forEach(item => {
-                        const imgPath = item.image_path ? item.image_path : 'https://via.placeholder.com/400x300?text=No+Photo';
+                        // Handle both old single 'image_path' and new 'image_paths' list
+                        const allImages = item.image_paths || (item.image_path ? [item.image_path] : []);
+                        const displayImg = allImages.length > 0 ? allImages[0] : 'https://via.placeholder.com/400x300';
+                        const photoCountBadge = allImages.length > 1 ? `<div class="photo-count">+${allImages.length - 1} Photos</div>` : '';
 
                         container.innerHTML += `
-                    <div class="food-card">
-                        <div style="position:absolute; top:10px; left:10px; background:rgba(0,0,0,0.8); padding:5px 10px; font-size:12px; border-radius:5px; border:1px solid #444;">👤 ${item.sender}</div>
-                        <img src="${imgPath}" class="food-img" onerror="this.src='https://via.placeholder.com/400x300?text=Image+Loading...'">
-                        <div class="food-info">
-                            <span class="rating-badge">${item.rating}/10</span>
-                            <h3 style="margin: 10px 0 5px 0;">${item.name || 'Unknown Spot'}</h3>
-                            <p style="font-size: 0.9em; opacity: 0.8; height: 40px; overflow: hidden;">${item.comment || ''}</p>
-                            <div style="display:flex; justify-content:space-between; font-weight:bold;">
-                                <span>${item.price || '?'}€</span>
-                                <span style="opacity:0.5">${new Date(item.timestamp).toLocaleDateString()}</span>
-                            </div>
-                        </div>
-                    </div>
-                `;
-
-                        // Add to Map if GPS exists
-                        if (item.gps && item.gps.lat) {
-                            L.marker([item.gps.lat, item.gps.lng])
-                                .addTo(map)
-                                .bindPopup(`<b>${item.name}</b><br><img src="${imgPath}" class="map-thumb">`);
-                        }
+            <div class="food-card">
+                <div class="sender-badge">👤 ${item.sender}</div>
+                ${photoCountBadge}
+                <img src="${displayImg}" class="food-img">
+                </div>
+        `;
                     });
                 };
-
                 renderGallery(burgers, 'burger-gallery');
                 renderGallery(others, 'other-gallery');
 
