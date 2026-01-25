@@ -10,7 +10,7 @@ from PIL.ExifTags import TAGS, GPSTAGS
 # --- SECRETS (Replace these) ---
 TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN")
 GEMINI_KEY = os.environ.get("GEMINI_KEY")
-CHAT_ID = os.environ.get("CHAT_ID")
+TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
 MODEL_ID = 'gemini-2.0-flash' 
 
 client = genai.Client(api_key=GEMINI_KEY)
