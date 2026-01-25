@@ -73,7 +73,7 @@ async def main():
 
     for update in updates:
         msg = update.message
-        if not msg or str(msg.chat_id) != CHAT_ID or msg.message_id in processed_ids:
+        if not msg or str(msg.chat_id) != TELEGRAM_CHAT_ID or msg.message_id in processed_ids:
             continue
 
         text = msg.text or msg.caption or "Food photo"
