@@ -220,20 +220,28 @@
             // --- 2. Add Markers Explicitly ---
             data.forEach(item => {
                 if (item.gps && item.gps.lat && item.gps.lng) {
-                    const img = item.image_path || 'https://via.placeholder.com/100';
+                    // 1. Determine if we have a photo or need a placeholder
+                    const hasPhoto = item.image_path && item.image_path !== null;
+                    const imgTag = hasPhoto
+                        ? `<img src="${item.image_path}" style="width:100px; border-radius:4px; margin-top:5px; display:block;">`
+                        : `<div style="padding:10px; background:#f1f5f9; color:#64748b; font-size:10px; margin-top:5px; border-radius:4px; text-align:center;">No photo available</div>`;
+
                     L.marker([item.gps.lat, item.gps.lng])
                         .addTo(map)
                         .bindPopup(`
-                    <div style="color:#000">
-                        <b>${item.name}</b><br>
-                        ${item.rating}/10 - ${item.price}€<br>
-                        <img src="${img}" style="width:100px; border-radius:4px; margin-top:5px;">
-                    </div>
-                `);
+                <div style="color:#1e293b; font-family: sans-serif; min-width:100px;">
+                    <b style="font-size:1.1em;">${item.name}</b><br>
+                    <span style="color:var(--accent); font-weight:bold;">${item.rating}/10</span> 
+                    <span style="opacity:0.6; margin-left:5px;">${item.price > 0 ? item.price + '€' : ''}</span>
+                    ${imgTag}
+                </div>
+            `);
                 }
             });
-            const group = new L.featureGroup(allMarkersArray);
-            map.fitBounds(group.getBounds());
+            const points = data.filter(i => i.gps && i.gps.lat).map(i => [i.gps.lat, i.gps.lng]);
+            if (points.length > 0) {
+                map.fitBounds(points, { padding: [50, 50] });
+            }
 
             // --- 3. Stats & Charts (Keep your existing logic) ---
             document.getElementById('b-total').innerText = burgers.length;
