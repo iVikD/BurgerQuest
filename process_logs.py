@@ -23,7 +23,7 @@ client = genai.Client(api_key=GEMINI_KEY)
 
 SYSTEM_PROMPT = """
 Analyze this food-related chat message and image(s).
-Return ONLY a JSON object with: 
+Return ONLY a JSON object with:
 {
   "name": "restaurant name",
   "category": "burger" or "other",
@@ -34,6 +34,7 @@ Return ONLY a JSON object with:
   "items": ["list", "of", "items"]
 }
 """
+
 
 def get_gps_location(file_path):
     """Extracts GPS coordinates from image EXIF data."""
@@ -50,7 +51,8 @@ def get_gps_location(file_path):
                         gps_info[sub_tag] = value[t]
             if "GPSLatitude" in gps_info:
                 def to_deg(value):
-                    d = float(value[0]); m = float(value[1]); s = float(value[2])
+                    d = float(value[0]); m = float(
+                        value[1]); s = float(value[2])
                     return d + (m / 60.0) + (s / 3600.0)
                 lat = to_deg(gps_info["GPSLatitude"])
                 lng = to_deg(gps_info["GPSLongitude"])
@@ -59,6 +61,7 @@ def get_gps_location(file_path):
                 return {"lat": lat, "lng": lng}
     except Exception: return None
     return None
+
 
 async def main():
     bot = Bot(token=TELEGRAM_TOKEN)
@@ -77,7 +80,7 @@ async def main():
     else: db = []
 
     processed_ids = {entry.get('msg_id') for entry in db}
-    
+
     # --- BUFFERING LOGIC ---
     # Group messages by media_group_id to save Gemini costs
     groups = {}
@@ -86,21 +89,24 @@ async def main():
         msg = update.message
         if not msg or str(msg.chat_id) != TELEGRAM_CHAT_ID or msg.message_id in processed_ids:
             continue
-        
+
         # Unique key for grouping: media_group_id or just message_id for singles
         group_id = msg.media_group_id if msg.media_group_id else f"single_{msg.message_id}"
-        
+
         if group_id not in groups:
             groups[group_id] = {"msgs": [], "paths": []}
         groups[group_id]["msgs"].append(msg)
 
     for group_id, data in groups.items():
         main_msg = data["msgs"][0]
-        sender = main_msg.from_user.first_name if main_msg.from_user else "Unknown Hunter"
-        
+        #Only take the first part of the name
+        full_name = main_msg.from_user.first_name if main_msg.from_user else "Unknown Hunter"
+        sender = full_name.split()[0]
+
         # Extract full text from all messages in group
-        combined_text = " ".join(filter(None, [m.text or m.caption for m in data["msgs"]])) or "Food photo"
-        
+        combined_text = " ".join(
+            filter(None, [m.text or m.caption for m in data["msgs"]])) or "Food photo"
+
         # Download all photos in the group
         for m in data["msgs"]:
             if m.photo:
@@ -134,7 +140,8 @@ async def main():
             # Primary image for the cover
             entry['image_path'] = data["paths"][0] if data["paths"] else None
             # GPS from the first photo
-            entry['gps'] = get_gps_location(data["paths"][0]) if data["paths"] else None
+            entry['gps'] = get_gps_location(
+                data["paths"][0]) if data["paths"] else None
 
             db.append(entry)
             print(f"✅ Success: Logged {entry['name']} from {sender}")

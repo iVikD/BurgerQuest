@@ -13,7 +13,7 @@
       "arroz keshmir",
       "pan naan de queso"
     ],
-    "sender": "Jaqueline Gavotti",
+    "sender": "Jaqueline",
     "timestamp": "2026-01-03T00:10:51",
     "image_paths": [
       "assets/images/photo_1@03-01-2026_00-10-51.jpg"
@@ -33,7 +33,7 @@
       "tacos tres carnes",
       "birria"
     ],
-    "sender": "Jaqueline Gavotti",
+    "sender": "Jaqueline",
     "timestamp": "2026-01-03T22:20:48",
     "image_paths": [
       "assets/images/photo_2@03-01-2026_22-20-48.jpg",
@@ -52,7 +52,7 @@
     "items": [
       "normal cheeseburger"
     ],
-    "sender": "Victor De Gouveia",
+    "sender": "Victor",
     "timestamp": "2026-01-04T21:24:38",
     "image_paths": [],
     "image_path": null,
@@ -68,7 +68,7 @@
     "items": [
       "smash burger"
     ],
-    "sender": "Victor De Gouveia",
+    "sender": "Victor",
     "timestamp": "2026-01-04T21:25:00",
     "image_paths": [],
     "image_path": null,
@@ -86,7 +86,7 @@
       "Curry ternera",
       "takoyaki"
     ],
-    "sender": "Jaqueline Gavotti",
+    "sender": "Jaqueline",
     "timestamp": "2026-01-18T17:54:31",
     "image_paths": [
       "assets/images/photo_4@18-01-2026_17-54-31.jpg"
@@ -105,7 +105,7 @@
       "Shio ramen",
       "Takoyaki"
     ],
-    "sender": "Jaqueline Gavotti",
+    "sender": "Jaqueline",
     "timestamp": "2026-01-21T21:15:31",
     "image_paths": [
       "assets/images/photo_5@21-01-2026_21-15-31.jpg",
@@ -125,7 +125,7 @@
       "2x smash burger",
       "tequeños"
     ],
-    "sender": "Jaqueline Gavotti",
+    "sender": "Jaqueline",
     "timestamp": "2026-01-25T11:22:46",
     "image_paths": [
       "assets/images/photo_7@25-01-2026_11-22-46.jpg",
