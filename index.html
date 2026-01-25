@@ -274,14 +274,10 @@
                 if (points.length > 0) map.fitBounds(points, { padding: [50, 50] });
 
                 // --- 3. Stats & Charts Logic ---
-                // Calculate Total Burgers
                 document.getElementById('b-total').innerText = burgers.length;
-
-                // Calculate Global Average
                 const avg = burgers.reduce((acc, b) => acc + b.rating, 0) / (burgers.length || 1);
                 document.getElementById('b-avg').innerText = avg.toFixed(1);
 
-                // Calculate Top Hunter
                 const counts = data.reduce((acc, m) => {
                     acc[m.sender] = (acc[m.sender] || 0) + 1;
                     return acc;
@@ -289,7 +285,6 @@
                 const topHunter = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b, "N/A");
                 document.getElementById('top-hunter').innerText = topHunter;
 
-                // Simple Chart Initialization
                 const ctx = document.getElementById('battleChart').getContext('2d');
                 new Chart(ctx, {
                     type: 'bar',
@@ -315,6 +310,80 @@
                 console.error("Critical Error loading dashboard:", error);
             }
         }
+
+        // --- MISSING FUNCTIONS RESTORED BELOW ---
+
+        function renderGallery(items, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+
+            items.slice().reverse().forEach(item => {
+                const itemData = encodeURIComponent(JSON.stringify(item));
+                const allImages = item.image_paths || [];
+                let displayImg = item.image_path || (allImages.length > 0 ? allImages[0] : null);
+
+                const imgHtml = displayImg
+                    ? `<img src="${displayImg}" class="food-img" onerror="this.src='https://via.placeholder.com/400x300?text=Image+Not+Found'">`
+                    : `<div class="food-img" style="display:flex; align-items:center; justify-content:center; background:#1e293b; color:#475569; flex-direction:column;">
+                        <span style="font-size:2rem;">📸</span>
+                        <span style="font-size:0.8rem; margin-top:10px;">No Photo</span>
+                       </div>`;
+
+                const photoCountBadge = allImages.length > 1
+                    ? `<div style="position:absolute; bottom:10px; right:10px; background:rgba(15,23,42,0.8); padding:2px 8px; font-size:11px; border-radius:4px; border:1px solid #475569;">+${allImages.length - 1} Photos</div>`
+                    : '';
+
+                container.innerHTML += `
+                    <div class="food-card" onclick="openLightbox('${itemData}')" style="cursor:pointer;">
+                        <div style="position:relative;">
+                            <div style="position:absolute; top:10px; left:10px; background:rgba(0,0,0,0.7); padding:5px 10px; font-size:12px; border-radius:5px; z-index:5;">👤 ${item.sender}</div>
+                            ${photoCountBadge}
+                            ${imgHtml}
+                        </div>
+                        <div class="food-info">
+                            <span class="rating-badge">${item.rating}/10</span>
+                            <h3 style="margin:10px 0 5px 0;">${item.name}</h3>
+                            <p style="font-size:0.85rem; opacity:0.7; margin-bottom:15px;">${item.comment || ''}</p>
+                            <div style="display:flex; justify-content:space-between; opacity:0.8; font-size:0.9em; border-top:1px solid #334155; padding-top:10px;">
+                                <span style="color:var(--accent); font-weight:bold;">${item.price > 0 ? item.price + '€' : 'Price N/A'}</span>
+                                <span>${new Date(item.timestamp).toLocaleDateString()}</span>
+                            </div>
+                        </div>
+                    </div>`;
+            });
+        }
+
+        function openLightbox(encodedData) {
+            const item = JSON.parse(decodeURIComponent(encodedData));
+            const container = document.getElementById('lightbox-content');
+            const caption = document.getElementById('lightbox-caption');
+            const lightbox = document.getElementById('lightbox');
+
+            container.innerHTML = '';
+            const images = item.image_paths && item.image_paths.length > 0
+                ? item.image_paths
+                : (item.image_path ? [item.image_path] : []);
+
+            images.forEach(src => {
+                container.innerHTML += `<img src="${src}" style="height:70vh; border-radius:8px; object-fit:contain; box-shadow: 0 0 20px rgba(0,0,0,0.5);">`;
+            });
+
+            caption.innerHTML = `<h3>${item.name}</h3><p>${item.comment || ''}</p>`;
+            lightbox.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        document.getElementById('lightbox').addEventListener('click', function (e) {
+            if (e.target === this) closeLightbox();
+        });
+
+        // This line actually starts the dashboard!
+        init();
     </script>
 
     <div id="lightbox"
