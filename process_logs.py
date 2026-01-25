@@ -13,6 +13,11 @@ GEMINI_KEY = os.environ.get("GEMINI_KEY")
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
 MODEL_ID = 'gemini-2.0-flash' 
 
+if not all([TELEGRAM_TOKEN, CHAT_ID, GEMINI_KEY]):
+    print("❌ ERROR: Missing one or more environment variables.")
+    print(f"Token present: {bool(TELEGRAM_TOKEN)}, Chat ID: {bool(CHAT_ID)}, Gemini: {bool(GEMINI_KEY)}")
+    sys.exit(1) # Stop the action here
+
 client = genai.Client(api_key=GEMINI_KEY)
 
 SYSTEM_PROMPT = """
