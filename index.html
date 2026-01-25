@@ -283,6 +283,14 @@
             const container = document.getElementById(containerId);
             container.innerHTML = '';
 
+            // Add JSON.stringify to pass the whole item object to the function
+            const itemData = encodeURIComponent(JSON.stringify(item));
+
+            container.innerHTML += `
+    <div class="food-card" onclick="openLightbox('${itemData}')" style="cursor:pointer;">
+        </div>
+`;
+
             items.slice().reverse().forEach(item => {
                 // 1. Get the best available image
                 const allImages = item.image_paths || [];
@@ -327,8 +335,56 @@
             });
         }
 
+        function openLightbox(encodedData) {
+            const item = JSON.parse(decodeURIComponent(encodedData));
+            const container = document.getElementById('lightbox-content');
+            const caption = document.getElementById('lightbox-caption');
+            const lightbox = document.getElementById('lightbox');
+
+            // Clear previous images
+            container.innerHTML = '';
+
+            // Get all images
+            const images = item.image_paths && item.image_paths.length > 0
+                ? item.image_paths
+                : (item.image_path ? [item.image_path] : []);
+
+            if (images.length === 0) return;
+
+            // Inject images into the modal
+            images.forEach(src => {
+                container.innerHTML += `<img src="${src}" style="height:70vh; border-radius:8px; object-fit:contain; box-shadow: 0 0 20px rgba(0,0,0,0.5);">`;
+            });
+
+            caption.innerHTML = `<h3>${item.name}</h3><p>${item.comment || ''}</p>`;
+            lightbox.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Stop background scrolling
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+
+        // Close lightbox if clicking outside the image
+        document.getElementById('lightbox').addEventListener('click', function (e) {
+            if (e.target === this) closeLightbox();
+        });
+
         init();
     </script>
+
+    <div id="lightbox"
+        style="display:none; position:fixed; z-index:9999; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); justify-content:center; align-items:center; flex-direction:column;">
+        <span onclick="closeLightbox()"
+            style="position:absolute; top:20px; right:30px; color:white; font-size:40px; cursor:pointer; font-family:serif;">&times;</span>
+        <div id="lightbox-content"
+            style="max-width:90%; max-height:80%; display:flex; gap:10px; overflow-x:auto; padding:20px;">
+        </div>
+        <div id="lightbox-caption" style="color:white; margin-top:20px; text-align:center; font-family:sans-serif;">
+        </div>
+    </div>
+
 </body>
 
 </html>
