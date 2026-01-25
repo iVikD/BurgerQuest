@@ -162,6 +162,29 @@
             border-top: 1px solid #334155;
             padding-top: 10px;
         }
+
+        /* Force the Leaflet Popup to be readable */
+        .leaflet-popup-content-wrapper,
+        .leaflet-popup-tip {
+            background: #ffffff !important;
+            /* Force white background */
+            color: #1e293b !important;
+            /* Force dark slate text */
+            box-shadow: 0 3px 14px rgba(0, 0, 0, 0.4);
+        }
+
+        .leaflet-popup-content b {
+            color: #0f172a !important;
+            /* Even darker for titles */
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .leaflet-popup-content .popup-sub {
+            color: #64748b !important;
+            /* Muted gray for secondary info */
+            font-size: 0.85em;
+        }
     </style>
 </head>
 
@@ -220,20 +243,23 @@
             // --- 2. Add Markers Explicitly ---
             data.forEach(item => {
                 if (item.gps && item.gps.lat && item.gps.lng) {
-                    // 1. Determine if we have a photo or need a placeholder
                     const hasPhoto = item.image_path && item.image_path !== null;
-                    const imgTag = hasPhoto
-                        ? `<img src="${item.image_path}" style="width:100px; border-radius:4px; margin-top:5px; display:block;">`
-                        : `<div style="padding:10px; background:#f1f5f9; color:#64748b; font-size:10px; margin-top:5px; border-radius:4px; text-align:center;">No photo available</div>`;
+
+                    // Define the image or the "No Photo" placeholder
+                    const imgHtml = hasPhoto
+                        ? `<img src="${item.image_path}" style="width:100%; max-width:120px; border-radius:4px; margin-top:8px; display:block;">`
+                        : `<div style="margin-top:8px; padding:8px; background:#f1f5f9; border-radius:4px; text-align:center; font-size:10px; color:#94a3b8;">📸 No photo</div>`;
 
                     L.marker([item.gps.lat, item.gps.lng])
                         .addTo(map)
                         .bindPopup(`
-                <div style="color:#1e293b; font-family: sans-serif; min-width:100px;">
-                    <b style="font-size:1.1em;">${item.name}</b><br>
-                    <span style="color:var(--accent); font-weight:bold;">${item.rating}/10</span> 
-                    <span style="opacity:0.6; margin-left:5px;">${item.price > 0 ? item.price + '€' : ''}</span>
-                    ${imgTag}
+                <div style="line-height:1.4;">
+                    <b>${item.name}</b>
+                    <div class="popup-sub">
+                        <span style="color:#e11d48; font-weight:bold;">★ ${item.rating}/10</span> • 
+                        <span>${item.price > 0 ? item.price + '€' : 'Free/Unk'}</span>
+                    </div>
+                    ${imgHtml}
                 </div>
             `);
                 }
