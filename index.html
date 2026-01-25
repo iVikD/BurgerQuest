@@ -185,6 +185,15 @@
             /* Muted gray for secondary info */
             font-size: 0.85em;
         }
+
+        #lightbox-content {
+            scroll-snap-type: x mandatory;
+            /* Makes images snap to center */
+        }
+
+        #lightbox-content img {
+            scroll-snap-align: center;
+        }
     </style>
 </head>
 
@@ -283,25 +292,19 @@
             const container = document.getElementById(containerId);
             container.innerHTML = '';
 
-            // Add JSON.stringify to pass the whole item object to the function
-            const itemData = encodeURIComponent(JSON.stringify(item));
-
-            container.innerHTML += `
-    <div class="food-card" onclick="openLightbox('${itemData}')" style="cursor:pointer;">
-        </div>
-`;
-
             items.slice().reverse().forEach(item => {
-                // 1. Get the best available image
+                // 1. Prepare data for the lightbox
+                const itemData = encodeURIComponent(JSON.stringify(item));
+
+                // 2. Get the best available image for display
                 const allImages = item.image_paths || [];
                 let displayImg = item.image_path;
 
-                // Fallback: If image_path is null, try the first item in the array
                 if (!displayImg && allImages.length > 0) {
                     displayImg = allImages[0];
                 }
 
-                // 2. Determine if we show an image or a placeholder
+                // 3. Determine if we show an image or a placeholder
                 const imgHtml = displayImg
                     ? `<img src="${displayImg}" class="food-img" onerror="this.src='https://via.placeholder.com/400x300?text=Image+Not+Found'">`
                     : `<div class="food-img" style="display:flex; align-items:center; justify-content:center; background:#1e293b; color:#475569; flex-direction:column;">
@@ -309,13 +312,14 @@
                 <span style="font-size:0.8rem; margin-top:10px;">No Photo Logged</span>
                </div>`;
 
-                // 3. Multi-photo indicator
+                // 4. Multi-photo indicator
                 const photoCountBadge = allImages.length > 1
                     ? `<div style="position:absolute; bottom:10px; right:10px; background:rgba(15,23,42,0.8); padding:2px 8px; font-size:11px; border-radius:4px; border:1px solid #475569;">+${allImages.length - 1} Photos</div>`
                     : '';
 
+                // 5. Build the card with the click event
                 container.innerHTML += `
-            <div class="food-card">
+            <div class="food-card" onclick="openLightbox('${itemData}')" style="cursor:pointer;">
                 <div style="position:relative;">
                     <div style="position:absolute; top:10px; left:10px; background:rgba(0,0,0,0.7); padding:5px 10px; font-size:12px; border-radius:5px; z-index:5;">👤 ${item.sender}</div>
                     ${photoCountBadge}
