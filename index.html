@@ -211,21 +211,46 @@
                 // 4. Helper Function to Render Galleries
                 const renderGallery = (items, containerId) => {
                     const container = document.getElementById(containerId);
+                    container.innerHTML = ''; // Clear it to prevent duplicates
+
                     items.slice().reverse().forEach(item => {
                         // Handle both old single 'image_path' and new 'image_paths' list
                         const allImages = item.image_paths || (item.image_path ? [item.image_path] : []);
-                        const displayImg = allImages.length > 0 ? allImages[0] : 'https://via.placeholder.com/400x300';
-                        const photoCountBadge = allImages.length > 1 ? `<div class="photo-count">+${allImages.length - 1} Photos</div>` : '';
+                        const displayImg = allImages.length > 0 ? allImages[0] : 'https://via.placeholder.com/400x300?text=No+Photo';
+
+                        // Add a badge if there are multiple photos
+                        const photoCountBadge = allImages.length > 1
+                            ? `<div style="position:absolute; bottom:10px; right:10px; background:rgba(0,0,0,0.7); padding:2px 8px; font-size:11px; border-radius:4px; border:1px solid #555;">+${allImages.length - 1} More</div>`
+                            : '';
 
                         container.innerHTML += `
             <div class="food-card">
-                <div class="sender-badge">👤 ${item.sender}</div>
-                ${photoCountBadge}
-                <img src="${displayImg}" class="food-img">
+                <div style="position:relative;">
+                    <div style="position:absolute; top:10px; left:10px; background:rgba(15,23,42,0.8); padding:4px 8px; font-size:12px; border-radius:6px; border:1px solid #475569; z-index:10;">👤 ${item.sender || 'Unknown'}</div>
+                    ${photoCountBadge}
+                    <img src="${displayImg}" class="food-img" onerror="this.src='https://via.placeholder.com/400x300?text=Image+Not+Found'">
                 </div>
+                <div class="food-info">
+                    <span class="rating-badge">${item.rating || '?'}/10</span>
+                    <h3 style="margin: 0 0 5px 0; font-size: 1.1rem;">${item.name || 'Unknown Spot'}</h3>
+                    <p style="font-size: 0.85rem; opacity: 0.8; margin: 8px 0; min-height: 38px;">${item.comment || ''}</p>
+                    <div style="display:flex; justify-content:space-between; font-weight:bold; font-size: 0.9rem; border-top: 1px solid #334155; padding-top: 10px;">
+                        <span style="color: var(--accent);">${item.price > 0 ? item.price + '€' : 'Price N/A'}</span>
+                        <span style="opacity:0.5; font-weight: normal;">${new Date(item.timestamp).toLocaleDateString()}</span>
+                    </div>
+                </div>
+            </div>
         `;
+
+                        // Add to Map if GPS exists
+                        if (item.gps && item.gps.lat && typeof map !== 'undefined') {
+                            L.marker([item.gps.lat, item.gps.lng])
+                                .addTo(map)
+                                .bindPopup(`<b>${item.name}</b><br><img src="${displayImg}" class="map-thumb">`);
+                        }
                     });
                 };
+
                 renderGallery(burgers, 'burger-gallery');
                 renderGallery(others, 'other-gallery');
 
