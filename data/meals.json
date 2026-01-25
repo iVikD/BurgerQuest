@@ -6,10 +6,18 @@
     "price": 53.0,
     "is_burger": false,
     "comment": "Indian food: tikka masala, lamb, cheese naan.",
-    "items": ["onion baji", "pollo tikka masala", "madras lamb", "arroz keshmir", "pan naan de queso"],
+    "items": [
+      "onion baji",
+      "pollo tikka masala",
+      "madras lamb",
+      "arroz keshmir",
+      "pan naan de queso"
+    ],
     "sender": "Jaqueline Gavotti",
     "timestamp": "2026-01-03T00:10:51",
-    "image_paths": ["assets/images/photo_1@03-01-2026_00-10-51.jpg"],
+    "image_paths": [
+      "assets/images/photo_1@03-01-2026_00-10-51.jpg"
+    ],
     "image_path": "assets/images/photo_1@03-01-2026_00-10-51.jpg",
     "gps": null
   },
@@ -20,7 +28,11 @@
     "price": 19.9,
     "is_burger": false,
     "comment": "Mexican Birriería. Multiple tacos and appetizers.",
-    "items": ["nachos", "tacos tres carnes", "birria"],
+    "items": [
+      "nachos",
+      "tacos tres carnes",
+      "birria"
+    ],
     "sender": "Jaqueline Gavotti",
     "timestamp": "2026-01-03T22:20:48",
     "image_paths": [
@@ -37,7 +49,9 @@
     "price": 0,
     "is_burger": true,
     "comment": "Normal cheeseburger.",
-    "items": ["normal cheeseburger"],
+    "items": [
+      "normal cheeseburger"
+    ],
     "sender": "Victor De Gouveia",
     "timestamp": "2026-01-04T21:24:38",
     "image_paths": [],
@@ -51,7 +65,9 @@
     "price": 0,
     "is_burger": true,
     "comment": "Smash burger. Pricey.",
-    "items": ["smash burger"],
+    "items": [
+      "smash burger"
+    ],
     "sender": "Victor De Gouveia",
     "timestamp": "2026-01-04T21:25:00",
     "image_paths": [],
@@ -65,12 +81,15 @@
     "price": 18.6,
     "is_burger": false,
     "comment": "Tantanmen ramen and various sides.",
-    "items": ["Tantanmen ramen", "Curry ternera", "takoyaki"],
+    "items": [
+      "Tantanmen ramen",
+      "Curry ternera",
+      "takoyaki"
+    ],
     "sender": "Jaqueline Gavotti",
     "timestamp": "2026-01-18T17:54:31",
     "image_paths": [
-      "assets/images/photo_4@18-01-2026_17-54-31.jpg",
-      "assets/images/photo_5@18-01-2026_17-54-31.jpg"
+      "assets/images/photo_4@18-01-2026_17-54-31.jpg"
     ],
     "image_path": "assets/images/photo_4@18-01-2026_17-54-31.jpg",
     "gps": null
@@ -82,11 +101,17 @@
     "price": 20.0,
     "is_burger": false,
     "comment": "Shio ramen con ajitama.",
-    "items": ["Shio ramen", "Takoyaki"],
+    "items": [
+      "Shio ramen",
+      "Takoyaki"
+    ],
     "sender": "Jaqueline Gavotti",
     "timestamp": "2026-01-21T21:15:31",
-    "image_paths": ["assets/images/photo_6@21-01-2026_21-15-31.jpg"],
-    "image_path": "assets/images/photo_6@21-01-2026_21-15-31.jpg",
+    "image_paths": [
+      "assets/images/photo_5@21-01-2026_21-15-31.jpg",
+      "assets/images/photo_6@21-01-2026_21-15-31.jpg"
+    ],
+    "image_path": "assets/images/photo_5@21-01-2026_21-15-31.jpg",
     "gps": null
   },
   {
@@ -96,10 +121,16 @@
     "price": 40.0,
     "is_burger": true,
     "comment": "Terrible smash burger experience.",
-    "items": ["2x smash burger", "tequeños"],
+    "items": [
+      "2x smash burger",
+      "tequeños"
+    ],
     "sender": "Jaqueline Gavotti",
     "timestamp": "2026-01-25T11:22:46",
-    "image_paths": ["assets/images/photo_7@25-01-2026_11-22-46.jpg"],
+    "image_paths": [
+      "assets/images/photo_7@25-01-2026_11-22-46.jpg",
+      "assets/images/photo_8@25-01-2026_11-22-46.jpg"
+    ],
     "image_path": "assets/images/photo_7@25-01-2026_11-22-46.jpg",
     "gps": null
   }
