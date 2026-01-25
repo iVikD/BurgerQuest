@@ -209,7 +209,7 @@
                 <h2 id="b-total">0</h2>
             </div>
             <div class="stat-card">
-                <h3>Top Hunter</h3>
+                <h3>Top Burger Hunter</h3>
                 <h2 id="top-hunter">--</h2>
             </div>
             <div class="stat-card">
@@ -291,12 +291,17 @@
                 document.getElementById('b-avg').innerText = avg.toFixed(1);
 
                 // Calculate Top Hunter
-                const counts = data.reduce((acc, m) => {
-                    acc[m.sender] = (acc[m.sender] || 0) + 1;
+                const burgerCounts = burgers.reduce((acc, b) => {
+                    acc[b.sender] = (acc[b.sender] || 0) + 1;
                     return acc;
                 }, {});
-                const topHunter = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b, "N/A");
-                document.getElementById('top-hunter').innerText = topHunter;
+
+                // Find the person with the most burgers
+                const topBurgerHunter = Object.keys(burgerCounts).length > 0
+                    ? Object.keys(burgerCounts).reduce((a, b) => burgerCounts[a] > burgerCounts[b] ? a : b)
+                    : "N/A";
+
+                document.getElementById('top-hunter').innerText = topBurgerHunter;
 
                 // --- NEW BURGER BATTLE CHART LOGIC ---
                 const monthlyData = {};
