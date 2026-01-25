@@ -1,1 +1,57 @@
-[]
+[
+  {
+    "name": "Burger Palace",
+    "category": "burger",
+    "rating": 8,
+    "price": 12.99,
+    "is_burger": true,
+    "comment": "Delicious burger with fries and a shake!",
+    "items": [
+      "burger",
+      "fries",
+      "shake"
+    ],
+    "sender": "Victor",
+    "msg_id": 5,
+    "timestamp": "2026-01-25T12:14:07+00:00",
+    "image_path": null,
+    "gps": null
+  },
+  {
+    "name": "Joe's",
+    "category": "burger",
+    "rating": 8,
+    "price": 12.5,
+    "is_burger": true,
+    "comment": "Atomic Burger: bread a bit dry, meat was fire",
+    "items": [
+      "Atomic Burger"
+    ],
+    "sender": "Victor",
+    "msg_id": 6,
+    "timestamp": "2026-01-25T12:15:42+00:00",
+    "image_path": null,
+    "gps": null
+  },
+  {
+    "name": "Kagura Ramen",
+    "category": "other",
+    "rating": 7,
+    "price": 14,
+    "is_burger": false,
+    "comment": "pretty good as usual.",
+    "items": [
+      "tonkotsu ramen",
+      "pork",
+      "egg",
+      "bamboo shoots",
+      "green onions",
+      "noodles"
+    ],
+    "sender": "Victor",
+    "msg_id": 7,
+    "timestamp": "2026-01-25T12:55:22+00:00",
+    "image_path": "assets/images/7.jpg",
+    "gps": null
+  }
+]
