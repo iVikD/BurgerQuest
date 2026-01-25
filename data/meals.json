@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Joe's",
+    "category": "burger",
+    "rating": 8,
+    "price": 12.5,
+    "is_burger": true,
+    "comment": "Atomic Burger, bread dry but meat was good.",
+    "items": [
+      "Atomic Burger"
+    ],
+    "msg_id": 6,
+    "timestamp": "2026-01-25T12:15:42+00:00",
+    "image_path": null,
+    "gps": null
+  }
+]
