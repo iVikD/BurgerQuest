@@ -19,7 +19,10 @@
       "assets/images/photo_1@03-01-2026_00-10-51.jpg"
     ],
     "image_path": "assets/images/photo_1@03-01-2026_00-10-51.jpg",
-    "gps": null
+    "gps": {
+      "lat": 40.48302248459835,
+      "lng": -3.3656823788742423
+    }
   },
   {
     "name": "Dos Coyotes",
@@ -40,7 +43,10 @@
       "assets/images/photo_3@03-01-2026_22-20-48.jpg"
     ],
     "image_path": "assets/images/photo_2@03-01-2026_22-20-48.jpg",
-    "gps": null
+    "gps": {
+      "lat": 40.43136343516625,
+      "lng": -3.7061673611299844
+    }
   },
   {
     "name": "Vicio",
@@ -56,7 +62,10 @@
     "timestamp": "2026-01-03T22:24:38",
     "image_paths": [],
     "image_path": null,
-    "gps": null
+    "gps": {
+      "lat": 40.39745215917807,
+      "lng": -3.6660215427621985
+    }
   },
   {
     "name": "Foster’s",
@@ -72,7 +81,10 @@
     "timestamp": "2026-01-04T14:25:00",
     "image_paths": [],
     "image_path": null,
-    "gps": null
+    "gps": {
+      "lat": 40.94939502957556,
+      "lng": -4.121655609186516
+    }
   },
   {
     "name": "Udon",
@@ -92,7 +104,10 @@
       "assets/images/photo_4@18-01-2026_17-54-31.jpg"
     ],
     "image_path": "assets/images/photo_4@18-01-2026_17-54-31.jpg",
-    "gps": null
+    "gps": {
+      "lat": 40.3689253565242,
+      "lng": -3.5979332531284394
+    }
   },
   {
     "name": "Ramen ENSI",
@@ -112,7 +127,10 @@
       "assets/images/photo_6@21-01-2026_21-15-31.jpg"
     ],
     "image_path": "assets/images/photo_5@21-01-2026_21-15-31.jpg",
-    "gps": null
+    "gps": {
+      "lat": 40.39243389685907,
+      "lng": -3.679215163031378
+    }
   },
   {
     "name": "DIVERSUM DAGANZO",
@@ -132,7 +150,10 @@
       "assets/images/photo_8@25-01-2026_11-22-46.jpg"
     ],
     "image_path": "assets/images/photo_7@25-01-2026_11-22-46.jpg",
-    "gps": null
+    "gps": {
+      "lat": 40.54356049769651,
+      "lng": -3.4601918099448468
+    }
   },
   {
     "name": "Burger King",
@@ -148,7 +169,10 @@
     "timestamp": "2026-01-16T22:30:31",
     "image_paths": [],
     "image_path": null,
-    "gps": null
+    "gps": {
+      "lat": 40.36928327399615,
+      "lng": -3.597690706505681
+    }
   },
   {
     "name": "Ombuuxu",
@@ -164,6 +188,9 @@
     "timestamp": "2026-01-16T13:30:31",
     "image_paths": [],
     "image_path": null,
-    "gps": null
+    "gps": {
+      "lat": 40.396086320822405,
+      "lng": -3.6758202677206415
+    }
   }
 ]
