@@ -22,7 +22,10 @@
     "gps": {
       "lat": 40.48302248459835,
       "lng": -3.3656823788742423
-    }
+    },
+    "participants": [
+      "Jaqueline"
+    ]
   },
   {
     "name": "Dos Coyotes",
@@ -30,7 +33,7 @@
     "rating": 8,
     "price": 19.9,
     "is_burger": false,
-    "comment": "Mexican Birrier\u00c3\u00ada. Multiple tacos and appetizers.",
+    "comment": "Mexican BirrierÃ­a. Multiple tacos and appetizers.",
     "items": [
       "nachos",
       "tacos tres carnes",
@@ -46,13 +49,15 @@
     "gps": {
       "lat": 40.43136343516625,
       "lng": -3.7061673611299844
-    }
+    },
+    "participants": [
+      "Jaqueline"
+    ]
   },
   {
     "name": "Vicio",
     "category": "burger",
     "rating": 7,
-    "price": 11.9,
     "price": 11.9,
     "is_burger": true,
     "comment": "Normal cheeseburger. Delivery.",
@@ -66,10 +71,13 @@
     "gps": {
       "lat": 40.39745215917807,
       "lng": -3.6660215427621985
-    }
+    },
+    "participants": [
+      "Victor"
+    ]
   },
   {
-    "name": "Foster\u00e2\u20ac\u2122s",
+    "name": "Fosterâ€™s",
     "category": "burger",
     "rating": 4,
     "price": 17.95,
@@ -85,7 +93,10 @@
     "gps": {
       "lat": 40.94939502957556,
       "lng": -4.121655609186516
-    }
+    },
+    "participants": [
+      "Victor"
+    ]
   },
   {
     "name": "Udon",
@@ -108,7 +119,10 @@
     "gps": {
       "lat": 40.3689253565242,
       "lng": -3.5979332531284394
-    }
+    },
+    "participants": [
+      "Jaqueline"
+    ]
   },
   {
     "name": "Ramen ENSI",
@@ -131,7 +145,10 @@
     "gps": {
       "lat": 40.39243389685907,
       "lng": -3.679215163031378
-    }
+    },
+    "participants": [
+      "Jaqueline"
+    ]
   },
   {
     "name": "DIVERSUM DAGANZO",
@@ -142,7 +159,7 @@
     "comment": "Terrible smash burger experience.",
     "items": [
       "2x smash burger",
-      "teque\u00c3\u00b1os"
+      "tequeÃ±os"
     ],
     "sender": "Jaqueline",
     "timestamp": "2026-01-25T11:22:46",
@@ -154,7 +171,10 @@
     "gps": {
       "lat": 40.54356049769651,
       "lng": -3.4601918099448468
-    }
+    },
+    "participants": [
+      "Jaqueline"
+    ]
   },
   {
     "name": "Burger King",
@@ -173,7 +193,10 @@
     "gps": {
       "lat": 40.36928327399615,
       "lng": -3.597690706505681
-    }
+    },
+    "participants": [
+      "Victor"
+    ]
   },
   {
     "name": "Ombuuxu",
@@ -192,7 +215,10 @@
     "gps": {
       "lat": 40.396086320822405,
       "lng": -3.6758202677206415
-    }
+    },
+    "participants": [
+      "Victor"
+    ]
   },
   {
     "name": "Burger King Daganzo",
@@ -215,6 +241,9 @@
       "assets/images/AQADlAxrG7dV2Ed9.jpg"
     ],
     "image_path": "assets/images/AQADlQxrG7dV2Ed-.jpg",
-    "gps": null
+    "gps": null,
+    "participants": [
+      "Victor", "Jaqueline"
+    ]
   }
 ]

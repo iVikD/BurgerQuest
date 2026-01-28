@@ -31,8 +31,10 @@ Return ONLY a JSON object with:
   "price": number,
   "is_burger": boolean,
   "comment": "short summary",
-  "items": ["list", "of", "items"]
+  "items": ["list", "of", "items"],
+  "participants": ["list", "of", "people", "who", "ate"]
 }
+If the message or context implies the meal was shared (e.g., "we", "us", "together", or naming multiple people), include all of them in "participants".
 """
 
 
@@ -134,6 +136,13 @@ async def main():
             )
 
             entry = json.loads(response.text)
+            
+            # Ensure sender is always in participants if Gemini missed it
+            if 'participants' not in entry or not isinstance(entry['participants'], list):
+                entry['participants'] = [sender]
+            elif sender not in entry['participants']:
+                entry['participants'].append(sender)
+                
             entry['sender'] = sender
             entry['msg_id'] = main_msg.message_id
             entry['timestamp'] = main_msg.date.isoformat()

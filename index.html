@@ -290,9 +290,12 @@
                 const avg = burgers.reduce((acc, b) => acc + b.rating, 0) / (burgers.length || 1);
                 document.getElementById('b-avg').innerText = avg.toFixed(1);
 
-                // Calculate Top Hunter
+                // Calculate Top Hunter (using participants)
                 const burgerCounts = burgers.reduce((acc, b) => {
-                    acc[b.sender] = (acc[b.sender] || 0) + 1;
+                    const participants = b.participants || [b.sender];
+                    participants.forEach(p => {
+                        acc[p] = (acc[p] || 0) + 1;
+                    });
                     return acc;
                 }, {});
 
@@ -310,14 +313,16 @@
                 burgers.forEach(b => {
                     const date = new Date(b.timestamp);
                     const month = months[date.getMonth()];
-                    const user = b.sender;
+                    const participants = b.participants || [b.sender];
 
                     if (!monthlyData[month]) monthlyData[month] = {};
-                    monthlyData[month][user] = (monthlyData[month][user] || 0) + 1;
+                    participants.forEach(user => {
+                        monthlyData[month][user] = (monthlyData[month][user] || 0) + 1;
+                    });
                 });
 
                 const labels = Object.keys(monthlyData); // Only shows months that have data
-                const users = [...new Set(burgers.map(b => b.sender))];
+                const users = [...new Set(burgers.flatMap(b => b.participants || [b.sender]))];
                 const colors = ['#f59e0b', '#10b981', '#3b82f6', '#8b5cf6']; // Amber, Emerald, Blue, Violet
 
                 const datasets = users.map((user, i) => ({
@@ -379,7 +384,7 @@
                 container.innerHTML += `
                     <div class="food-card" onclick="openLightbox('${itemData}')" style="cursor:pointer;">
                         <div style="position:relative;">
-                            <div style="position:absolute; top:10px; left:10px; background:rgba(0,0,0,0.7); padding:5px 10px; font-size:12px; border-radius:5px; z-index:5;">👤 ${item.sender}</div>
+                            <div style="position:absolute; top:10px; left:10px; background:rgba(0,0,0,0.7); padding:5px 10px; font-size:12px; border-radius:5px; z-index:5;">👤 ${(item.participants || [item.sender]).join(' & ')}</div>
                             ${photoCountBadge}
                             ${imgHtml}
                         </div>
