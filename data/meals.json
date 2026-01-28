@@ -30,7 +30,7 @@
     "rating": 8,
     "price": 19.9,
     "is_burger": false,
-    "comment": "Mexican Birriería. Multiple tacos and appetizers.",
+    "comment": "Mexican Birrier\u00eda. Multiple tacos and appetizers.",
     "items": [
       "nachos",
       "tacos tres carnes",
@@ -52,7 +52,7 @@
     "name": "Vicio",
     "category": "burger",
     "rating": 7,
-    "price": 11.90,
+    "price": 11.9,
     "is_burger": true,
     "comment": "Normal cheeseburger. Delivery.",
     "items": [
@@ -68,7 +68,7 @@
     }
   },
   {
-    "name": "Foster’s",
+    "name": "Foster\u2019s",
     "category": "burger",
     "rating": 4,
     "price": 17.95,
@@ -141,7 +141,7 @@
     "comment": "Terrible smash burger experience.",
     "items": [
       "2x smash burger",
-      "tequeños"
+      "teque\u00f1os"
     ],
     "sender": "Jaqueline",
     "timestamp": "2026-01-25T11:22:46",
