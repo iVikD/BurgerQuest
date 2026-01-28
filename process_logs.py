@@ -64,8 +64,10 @@ def get_gps_location(file_path):
 
 
 async def main():
+    print("Starting scraper...")
     bot = Bot(token=TELEGRAM_TOKEN)
     updates = await bot.get_updates()
+    print(f"DEBUG: Found {len(updates)} updates from Telegram.") 
 
     os.makedirs("data", exist_ok=True)
     os.makedirs("assets/images", exist_ok=True)

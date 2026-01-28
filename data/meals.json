@@ -30,7 +30,7 @@
     "rating": 8,
     "price": 19.9,
     "is_burger": false,
-    "comment": "Mexican Birriería. Multiple tacos and appetizers.",
+    "comment": "Mexican Birrier\u00c3\u00ada. Multiple tacos and appetizers.",
     "items": [
       "nachos",
       "tacos tres carnes",
@@ -52,7 +52,7 @@
     "name": "Vicio",
     "category": "burger",
     "rating": 7,
-    "price": 11.90,
+    "price": 11.9,
     "is_burger": true,
     "comment": "Normal cheeseburger. Delivery.",
     "items": [
@@ -68,7 +68,7 @@
     }
   },
   {
-    "name": "Foster’s",
+    "name": "Foster\u00e2\u20ac\u2122s",
     "category": "burger",
     "rating": 4,
     "price": 17.95,
@@ -141,7 +141,7 @@
     "comment": "Terrible smash burger experience.",
     "items": [
       "2x smash burger",
-      "tequeños"
+      "teque\u00c3\u00b1os"
     ],
     "sender": "Jaqueline",
     "timestamp": "2026-01-25T11:22:46",
@@ -192,5 +192,28 @@
       "lat": 40.396086320822405,
       "lng": -3.6758202677206415
     }
+  },
+  {
+    "name": "Burger King Daganzo",
+    "category": "burger",
+    "rating": 6,
+    "price": 18.21,
+    "is_burger": true,
+    "comment": "Crispy chickens are good as always, same with onion rings. Tried the Krispper, nice spicy but wish it was crispy chicken patty",
+    "items": [
+      "Krispper menu",
+      "King Shake Oreo",
+      "2x Crispy Chicken",
+      "Onion rings"
+    ],
+    "sender": "Victor",
+    "msg_id": 12,
+    "timestamp": "2026-01-28T18:54:16+00:00",
+    "image_paths": [
+      "assets/images/AQADlQxrG7dV2Ed-.jpg",
+      "assets/images/AQADlAxrG7dV2Ed9.jpg"
+    ],
+    "image_path": "assets/images/AQADlQxrG7dV2Ed-.jpg",
+    "gps": null
   }
 ]

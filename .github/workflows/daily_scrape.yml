@@ -34,5 +34,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/ assets/
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update food logs" && git push)
+          git add data/meals.json assets/images/
+          # This will show you exactly what is about to be committed in the logs
+          git status 
+          git diff --staged --quiet || (git commit -m "Auto-update food logs" && git push)
