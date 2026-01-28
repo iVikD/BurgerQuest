@@ -14,18 +14,20 @@
             --card: #1e293b;
             --text: #f8fafc;
             --accent: #f59e0b;
+            --muted: #64748b;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background: var(--bg);
             color: var(--text);
             margin: 0;
             padding: 20px;
+            line-height: 1.5;
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: auto;
         }
 
@@ -39,7 +41,7 @@
 
         .stats-row {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 15px;
             margin-bottom: 30px;
         }
@@ -48,151 +50,169 @@
             background: var(--card);
             padding: 20px;
             border-radius: 12px;
-            border-left: 4px solid var(--accent);
+            border-bottom: 4px solid var(--accent);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .stat-card h3 {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .stat-card h2 {
+            margin: 10px 0 0 0;
+            font-size: 1.8rem;
+        }
+
+        /* Charts */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .chart-container {
+            background: var(--card);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
         /* The Map */
         #map {
-            height: 400px;
+            height: 450px;
             border-radius: 16px;
             margin-bottom: 40px;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
         }
 
+        /* Gallery controls */
+        .gallery-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 40px 0 20px 0;
+        }
+
+        .search-box {
+            background: var(--card);
+            border: 1px solid #334155;
+            padding: 10px 15px;
+            border-radius: 8px;
+            color: white;
+            width: 300px;
+            font-size: 0.9rem;
+        }
+
         /* Burger Gallery */
         .burger-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
         }
 
         .food-card {
             background: var(--card);
             border-radius: 12px;
             overflow: hidden;
-            transition: transform 0.2s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            border: 1px solid #334155;
         }
 
         .food-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+            border-color: var(--accent);
         }
 
         .food-img {
             width: 100%;
-            height: 200px;
+            height: 220px;
             object-fit: cover;
             background: #334155;
         }
 
         .food-info {
-            padding: 15px;
+            padding: 20px;
         }
 
         .rating-badge {
             background: var(--accent);
             color: #000;
-            padding: 2px 8px;
-            border-radius: 6px;
-            font-weight: bold;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            display: inline-block;
+        }
+
+        .participant-tag {
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: white;
+            margin-right: 5px;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
         /* Leaflet Popup Fix */
         .leaflet-popup-content-wrapper {
-            background: var(--card);
-            color: var(--text);
-        }
-
-        .map-thumb {
-            width: 100px;
-            border-radius: 4px;
-            margin-top: 5px;
-        }
-
-        /* Container for multiple images */
-        .image-grid {
-            display: grid;
-            gap: 2px;
-            height: 250px;
-            /* Match your standard card image height */
-            background: #000;
-        }
-
-        .grid-2 {
-            grid-template-columns: 1fr 1fr;
-        }
-
-        .grid-3 {
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: 1fr 1fr;
-        }
-
-        .grid-3 img:first-child {
-            grid-row: span 2;
-        }
-
-        /* One big, two small */
-        .grid-4 {
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: 1fr 1fr;
-        }
-
-        .grid-photo {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .user-badge {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: rgba(15, 23, 42, 0.8);
-            padding: 4px 8px;
-            font-size: 11px;
-            border-radius: 6px;
-            border: 1px solid #475569;
-            z-index: 10;
-        }
-
-        .card-footer {
-            display: flex;
-            justify-content: space-between;
-            font-weight: bold;
-            font-size: 0.85rem;
-            border-top: 1px solid #334155;
-            padding-top: 10px;
-        }
-
-        /* Force the Leaflet Popup to be readable */
-        .leaflet-popup-content-wrapper,
-        .leaflet-popup-tip {
-            background: #ffffff !important;
-            /* Force white background */
+            background: white !important;
             color: #1e293b !important;
-            /* Force dark slate text */
-            box-shadow: 0 3px 14px rgba(0, 0, 0, 0.4);
+            border-radius: 8px !important;
         }
 
-        .leaflet-popup-content b {
-            color: #0f172a !important;
-            /* Even darker for titles */
-            display: block;
-            margin-bottom: 2px;
-        }
-
-        .leaflet-popup-content .popup-sub {
-            color: #64748b !important;
-            /* Muted gray for secondary info */
-            font-size: 0.85em;
+        /* Lightbox */
+        #lightbox {
+            display:none; 
+            position:fixed; 
+            z-index:10000; 
+            top:0; left:0; width:100%; height:100%; 
+            background:rgba(15, 23, 42, 0.98); 
+            justify-content:center; 
+            align-items:center; 
+            flex-direction:column;
+            backdrop-filter: blur(8px);
         }
 
         #lightbox-content {
+            max-width:90%; 
+            max-height:80vh; 
+            display:flex; 
+            gap:15px; 
+            overflow-x:auto; 
+            padding:20px;
             scroll-snap-type: x mandatory;
-            /* Makes images snap to center */
         }
 
         #lightbox-content img {
+            height:75vh; 
+            border-radius:12px; 
+            object-fit:contain; 
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
             scroll-snap-align: center;
+        }
+
+        .close-btn {
+            position:absolute; 
+            top:25px; 
+            right:35px; 
+            color:white; 
+            font-size:40px; 
+            cursor:pointer;
+            line-height: 1;
         }
     </style>
 </head>
@@ -200,7 +220,7 @@
 <body>
     <div class="container">
         <header>
-            <h1>🍔 BurgerQuest <small style="font-weight: 300; opacity: 0.7;">2026</small></h1>
+            <h1>🍔 BurgerQuest <small style="font-weight: 300; opacity: 0.6;">2026</small></h1>
         </header>
 
         <div class="stats-row">
@@ -209,214 +229,278 @@
                 <h2 id="b-total">0</h2>
             </div>
             <div class="stat-card">
-                <h3>Top Burger Hunter</h3>
-                <h2 id="top-hunter">--</h2>
-            </div>
-            <div class="stat-card">
                 <h3>Global Avg</h3>
                 <h2 id="b-avg">0</h2>
             </div>
+            <div class="stat-card">
+                <h3>Top Hunter</h3>
+                <h2 id="top-hunter">--</h2>
+            </div>
+            <div class="stat-card">
+                <h3>Total Spent</h3>
+                <h2 id="total-spent">0€</h2>
+            </div>
         </div>
 
-        <div class="card" style="background: var(--card); padding: 20px; border-radius: 12px; margin-bottom: 30px;">
-            <h2>⚔️ Burger Battle: Monthly Breakdown</h2>
-            <canvas id="battleChart" style="max-height: 300px;"></canvas>
+        <div class="charts-grid">
+            <div class="chart-container">
+                <h2 style="margin-top:0">⚔️ Monthly Battle</h2>
+                <canvas id="battleChart" style="max-height: 250px;"></canvas>
+            </div>
+            <div class="chart-container">
+                <h2 style="margin-top:0">📊 Persona Avg Rating</h2>
+                <canvas id="ratingChart" style="max-height: 250px;"></canvas>
+            </div>
+            <div class="chart-container">
+                <h2 style="margin-top:0">🍕 Categories</h2>
+                <canvas id="categoryChart" style="max-height: 250px;"></canvas>
+            </div>
         </div>
 
         <div id="map"></div>
 
-        <section>
+        <div class="gallery-header">
             <h2>🍔 The Burger Gallery</h2>
-            <div class="burger-grid" id="burger-gallery"></div>
-        </section>
+            <input type="text" class="search-box" id="search-input" placeholder="Search by name, place, or comment...">
+        </div>
+        <div class="burger-grid" id="burger-gallery"></div>
 
-        <section style="margin-top: 50px;">
+        <div class="gallery-header">
             <h2>🍽️ All Other Meals</h2>
-            <div class="burger-grid" id="other-gallery"></div>
-        </section>
+        </div>
+        <div class="burger-grid" id="other-gallery"></div>
     </div>
 
-    <div id="lightbox"
-        style="display:none; position:fixed; z-index:9999; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); justify-content:center; align-items:center; flex-direction:column;">
-        <span onclick="closeLightbox()"
-            style="position:absolute; top:20px; right:30px; color:white; font-size:40px; cursor:pointer; font-family:serif;">&times;</span>
-        <div id="lightbox-content"
-            style="max-width:90%; max-height:80%; display:flex; gap:10px; overflow-x:auto; padding:20px;">
-        </div>
-        <div id="lightbox-caption" style="color:white; margin-top:20px; text-align:center; font-family:sans-serif;">
-        </div>
+    <div id="lightbox">
+        <span class="close-btn" onclick="closeLightbox()">&times;</span>
+        <div id="lightbox-content"></div>
+        <div id="lightbox-caption" style="color:white; margin-top:20px; text-align:center; font-family:sans-serif; max-width: 800px;"></div>
     </div>
 
     <script>
+        let allMeals = [];
+        let battleChart, ratingChart, categoryChart;
+
         async function init() {
             try {
                 const res = await fetch('./data/meals.json');
-                const data = await res.json();
-                const burgers = data.filter(m => m.is_burger);
+                allMeals = await res.json();
+                
+                updateDashboard();
 
-                // --- 1. Initialize Map ---
-                const map = L.map('map').setView([40.4168, -3.7038], 11);
-                L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-                    attribution: '©OpenStreetMap'
-                }).addTo(map);
-
-                // --- 2. Add Markers ---
-                data.forEach(item => {
-                    if (item.gps && item.gps.lat && item.gps.lng) {
-                        const hasPhoto = item.image_path && item.image_path !== null;
-                        const imgHtml = hasPhoto
-                            ? `<img src="${item.image_path}" style="width:100%; max-width:120px; border-radius:4px; margin-top:8px; display:block;">`
-                            : `<div style="margin-top:8px; padding:8px; background:#f1f5f9; border-radius:4px; text-align:center; font-size:10px; color:#94a3b8;">📸 No photo</div>`;
-
-                        L.marker([item.gps.lat, item.gps.lng])
-                            .addTo(map)
-                            .bindPopup(`
-                                <div style="line-height:1.4;">
-                                    <b>${item.name}</b>
-                                    <div class="popup-sub">
-                                        <span style="color:#e11d48; font-weight:bold;">★ ${item.rating}/10</span> • 
-                                        <span>${item.price > 0 ? item.price + '€' : 'Free/Unk'}</span>
-                                    </div>
-                                    ${imgHtml}
-                                </div>
-                            `);
-                    }
+                // Setup search
+                document.getElementById('search-input').addEventListener('input', (e) => {
+                    const term = e.target.value.toLowerCase();
+                    const filteredBurgers = allMeals.filter(m => m.is_burger && (
+                        m.name.toLowerCase().includes(term) || 
+                        (m.comment && m.comment.toLowerCase().includes(term)) ||
+                        (m.items && m.items.some(i => i.toLowerCase().includes(term)))
+                    ));
+                    renderGallery(filteredBurgers, 'burger-gallery');
                 });
-                const points = data.filter(i => i.gps && i.gps.lat).map(i => [i.gps.lat, i.gps.lng]);
-                if (points.length > 0) map.fitBounds(points, { padding: [50, 50] });
-
-                // --- 3. Stats & Charts Logic ---
-                document.getElementById('b-total').innerText = burgers.length;
-                const avg = burgers.reduce((acc, b) => acc + b.rating, 0) / (burgers.length || 1);
-                document.getElementById('b-avg').innerText = avg.toFixed(1);
-
-                // Calculate Top Hunter (using participants)
-                const burgerCounts = burgers.reduce((acc, b) => {
-                    const participants = b.participants || [b.sender];
-                    participants.forEach(p => {
-                        acc[p] = (acc[p] || 0) + 1;
-                    });
-                    return acc;
-                }, {});
-
-                // Find the person with the most burgers
-                const topBurgerHunter = Object.keys(burgerCounts).length > 0
-                    ? Object.keys(burgerCounts).reduce((a, b) => burgerCounts[a] > burgerCounts[b] ? a : b)
-                    : "N/A";
-
-                document.getElementById('top-hunter').innerText = topBurgerHunter;
-
-                // --- NEW BURGER BATTLE CHART LOGIC ---
-                const monthlyData = {};
-                const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
-                burgers.forEach(b => {
-                    const date = new Date(b.timestamp);
-                    const month = months[date.getMonth()];
-                    const participants = b.participants || [b.sender];
-
-                    if (!monthlyData[month]) monthlyData[month] = {};
-                    participants.forEach(user => {
-                        monthlyData[month][user] = (monthlyData[month][user] || 0) + 1;
-                    });
-                });
-
-                const labels = Object.keys(monthlyData); // Only shows months that have data
-                const users = [...new Set(burgers.flatMap(b => b.participants || [b.sender]))];
-                const colors = ['#f59e0b', '#10b981', '#3b82f6', '#8b5cf6']; // Amber, Emerald, Blue, Violet
-
-                const datasets = users.map((user, i) => ({
-                    label: user,
-                    data: labels.map(m => monthlyData[m][user] || 0),
-                    backgroundColor: colors[i % colors.length]
-                }));
-
-                const ctx = document.getElementById('battleChart').getContext('2d');
-                new Chart(ctx, {
-                    type: 'bar',
-                    data: { labels, datasets },
-                    options: {
-                        responsive: true,
-                        plugins: {
-                            legend: { labels: { color: '#f8fafc' } } // Makes legend text white
-                        },
-                        scales: {
-                            x: { stacked: false, grid: { display: false }, ticks: { color: '#f8fafc' } },
-                            y: {
-                                beginAtZero: true,
-                                stacked: false,
-                                grid: { color: '#334155' },
-                                ticks: { color: '#f8fafc', stepSize: 1 }
-                            }
-                        }
-                    }
-                });
-                // --- 4. Render Galleries ---
-                renderGallery(burgers, 'burger-gallery');
-                renderGallery(data.filter(m => !m.is_burger), 'other-gallery');
 
             } catch (error) {
                 console.error("Critical Error loading dashboard:", error);
             }
         }
 
+        function updateDashboard() {
+            const burgers = allMeals.filter(m => m.is_burger);
+            
+            // --- Stats ---
+            document.getElementById('b-total').innerText = burgers.length;
+            const avg = burgers.reduce((acc, b) => acc + b.rating, 0) / (burgers.length || 1);
+            document.getElementById('b-avg').innerText = avg.toFixed(1);
+            
+            const spent = allMeals.reduce((acc, m) => acc + (m.price || 0), 0);
+            document.getElementById('total-spent').innerText = spent.toFixed(2) + '€';
+
+            const userStats = {};
+            allMeals.forEach(m => {
+                const participants = m.participants || [m.sender];
+                participants.forEach(p => {
+                    if (!userStats[p]) userStats[p] = { count: 0, totalRating: 0, burgers: 0 };
+                    userStats[p].count++;
+                    if (m.is_burger) {
+                        userStats[p].burgers++;
+                        userStats[p].totalRating += m.rating;
+                    }
+                });
+            });
+
+            const topHunter = Object.keys(userStats).reduce((a, b) => (userStats[a]?.burgers || 0) > (userStats[b]?.burgers || 0) ? a : b, "N/A");
+            document.getElementById('top-hunter').innerText = topHunter;
+
+            // --- Charts ---
+            initBattleChart(burgers);
+            initRatingChart(userStats);
+            initCategoryChart(allMeals);
+
+            // --- Map ---
+            initMap(allMeals);
+
+            // --- Galleries ---
+            renderGallery(burgers, 'burger-gallery');
+            renderGallery(allMeals.filter(m => !m.is_burger), 'other-gallery');
+        }
+
+        function initBattleChart(burgers) {
+            const monthlyData = {};
+            const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+            burgers.forEach(b => {
+                const date = new Date(b.timestamp);
+                const month = months[date.getMonth()];
+                const participants = b.participants || [b.sender];
+                if (!monthlyData[month]) monthlyData[month] = {};
+                participants.forEach(p => monthlyData[month][p] = (monthlyData[month][p] || 0) + 1);
+            });
+
+            const labels = Object.keys(monthlyData);
+            const users = [...new Set(burgers.flatMap(b => b.participants || [b.sender]))];
+            const colors = ['#f59e0b', '#10b981', '#3b82f6', '#8b5cf6'];
+
+            const datasets = users.map((u, i) => ({
+                label: u,
+                data: labels.map(m => monthlyData[m][u] || 0),
+                backgroundColor: colors[i % colors.length]
+            }));
+
+            if (battleChart) battleChart.destroy();
+            battleChart = new Chart(document.getElementById('battleChart'), {
+                type: 'bar',
+                data: { labels, datasets },
+                options: {
+                    plugins: { legend: { labels: { color: '#f8fafc' } } },
+                    scales: {
+                        x: { ticks: { color: '#f8fafc' } },
+                        y: { beginAtZero: true, ticks: { color: '#f8fafc', stepSize: 1 } }
+                    }
+                }
+            });
+        }
+
+        function initRatingChart(userStats) {
+            const users = Object.keys(userStats).filter(u => userStats[u].burgers > 0);
+            const data = users.map(u => (userStats[u].totalRating / userStats[u].burgers).toFixed(2));
+
+            if (ratingChart) ratingChart.destroy();
+            ratingChart = new Chart(document.getElementById('ratingChart'), {
+                type: 'bar',
+                data: {
+                    labels: users,
+                    datasets: [{
+                        label: 'Avg Burger Rating',
+                        data: data,
+                        backgroundColor: '#f59e0b'
+                    }]
+                },
+                options: {
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { ticks: { color: '#f8fafc' } },
+                        y: { min: 0, max: 10, ticks: { color: '#f8fafc' } }
+                    }
+                }
+            });
+        }
+
+        function initCategoryChart(meals) {
+            const cats = {};
+            meals.forEach(m => {
+                const c = m.category || 'Other';
+                cats[c] = (cats[c] || 0) + 1;
+            });
+
+            if (categoryChart) categoryChart.destroy();
+            categoryChart = new Chart(document.getElementById('categoryChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(cats),
+                    datasets: [{
+                        data: Object.values(cats),
+                        backgroundColor: ['#f59e0b', '#10b981', '#3b82f6', '#8b5cf6', '#ec4899', '#f43f5e']
+                    }]
+                },
+                options: {
+                    plugins: { legend: { position: 'right', labels: { color: '#f8fafc', font: { size: 10 } } } }
+                }
+            });
+        }
+
+        function initMap(meals) {
+            const container = L.DomUtil.get('map');
+            if(container != null){ container._leaflet_id = null; }
+            const map = L.map('map').setView([40.4168, -3.7038], 11);
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { attribution: '©OSM' }).addTo(map);
+
+            meals.forEach(item => {
+                if (item.gps?.lat) {
+                    const imgHtml = item.image_path ? `<img src="${item.image_path}" style="width:120px; border-radius:4px; margin-top:8px; display:block;">` : '';
+                    L.marker([item.gps.lat, item.gps.lng])
+                        .addTo(map)
+                        .bindPopup(`<b>${item.name}</b><br>Rating: ${item.rating}/10<br>${imgHtml}`);
+                }
+            });
+            const points = meals.filter(i => i.gps?.lat).map(i => [i.gps.lat, i.gps.lng]);
+            if (points.length > 0) map.fitBounds(points, { padding: [50, 50] });
+        }
 
         function renderGallery(items, containerId) {
             const container = document.getElementById(containerId);
             container.innerHTML = '';
 
             items.slice().reverse().forEach(item => {
-                const itemData = encodeURIComponent(JSON.stringify(item));
+                const participants = item.participants || [item.sender];
                 const allImages = item.image_paths || [];
-                let displayImg = item.image_path || (allImages.length > 0 ? allImages[0] : null);
+                const displayImg = item.image_path || (allImages.length > 0 ? allImages[0] : null);
 
                 const imgHtml = displayImg
-                    ? `<img src="${displayImg}" class="food-img" onerror="this.src='https://via.placeholder.com/400x300?text=Image+Not+Found'">`
-                    : `<div class="food-img" style="display:flex; align-items:center; justify-content:center; background:#1e293b; color:#475569; flex-direction:column;">
-                        <span style="font-size:2rem;">📸</span>
-                        <span style="font-size:0.8rem; margin-top:10px;">No Photo</span>
-                       </div>`;
+                    ? `<img src="${displayImg}" class="food-img" loading="lazy">`
+                    : `<div class="food-img" style="display:flex; align-items:center; justify-content:center; background:#1e293b; color:#475569;">📸 No Photo</div>`;
 
-                const photoCountBadge = allImages.length > 1
-                    ? `<div style="position:absolute; bottom:10px; right:10px; background:rgba(15,23,42,0.8); padding:2px 8px; font-size:11px; border-radius:4px; border:1px solid #475569;">+${allImages.length - 1} Photos</div>`
-                    : '';
+                const photoBadge = allImages.length > 1 ? `<div style="position:absolute; bottom:10px; right:10px; background:rgba(0,0,0,0.7); padding:2px 8px; font-size:11px; border-radius:4px;">+${allImages.length - 1}</div>` : '';
 
-                container.innerHTML += `
-                    <div class="food-card" onclick="openLightbox('${itemData}')" style="cursor:pointer;">
-                        <div style="position:relative;">
-                            <div style="position:absolute; top:10px; left:10px; background:rgba(0,0,0,0.7); padding:5px 10px; font-size:12px; border-radius:5px; z-index:5;">👤 ${(item.participants || [item.sender]).join(' & ')}</div>
-                            ${photoCountBadge}
-                            ${imgHtml}
+                const card = document.createElement('div');
+                card.className = 'food-card';
+                card.onclick = () => openLightbox(item);
+                card.innerHTML = `
+                    <div style="position:relative;">
+                        <div style="position:absolute; top:10px; left:10px; display:flex; flex-wrap:wrap; gap:4px; z-index:5;">
+                            ${participants.map(p => `<span class="participant-tag">👤 ${p}</span>`).join('')}
                         </div>
-                        <div class="food-info">
+                        ${photoBadge}
+                        ${imgHtml}
+                    </div>
+                    <div class="food-info">
+                        <div style="display:flex; justify-content:space-between; align-items:start;">
+                            <h3 style="margin:0; font-size:1.1rem; flex:1;">${item.name}</h3>
                             <span class="rating-badge">${item.rating}/10</span>
-                            <h3 style="margin:10px 0 5px 0;">${item.name}</h3>
-                            <p style="font-size:0.85rem; opacity:0.7; margin-bottom:15px;">${item.comment || ''}</p>
-                            <div style="display:flex; justify-content:space-between; opacity:0.8; font-size:0.9em; border-top:1px solid #334155; padding-top:10px;">
-                                <span style="color:var(--accent); font-weight:bold;">${item.price > 0 ? item.price + '€' : 'Price N/A'}</span>
-                                <span>${new Date(item.timestamp).toLocaleDateString()}</span>
-                            </div>
+                        </div>
+                        <p style="font-size:0.85rem; color:var(--muted); margin:10px 0 15px 0; height: 2.5em; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">${item.comment || ''}</p>
+                        <div style="display:flex; justify-content:space-between; font-size:0.85rem; border-top:1px solid #334155; padding-top:12px;">
+                            <span style="color:var(--accent); font-weight:bold;">${item.price > 0 ? item.price + '€' : 'Price N/A'}</span>
+                            <span style="color:var(--muted);">${new Date(item.timestamp).toLocaleDateString()}</span>
                         </div>
                     </div>`;
+                container.appendChild(card);
             });
         }
 
-        function openLightbox(encodedData) {
-            const item = JSON.parse(decodeURIComponent(encodedData));
+        function openLightbox(item) {
             const container = document.getElementById('lightbox-content');
             const caption = document.getElementById('lightbox-caption');
             const lightbox = document.getElementById('lightbox');
 
             container.innerHTML = '';
-            const images = item.image_paths && item.image_paths.length > 0
-                ? item.image_paths
-                : (item.image_path ? [item.image_path] : []);
+            const images = item.image_paths?.length ? item.image_paths : (item.image_path ? [item.image_path] : []);
+            images.forEach(src => container.innerHTML += `<img src="${src}">`);
 
-            images.forEach(src => {
-                container.innerHTML += `<img src="${src}" style="height:70vh; border-radius:8px; object-fit:contain; box-shadow: 0 0 20px rgba(0,0,0,0.5);">`;
-            });
-
-            caption.innerHTML = `<h3>${item.name}</h3><p>${item.comment || ''}</p>`;
+            caption.innerHTML = `<h2 style="margin:0 0 5px 0">${item.name}</h2>
+                                <p style="margin:0; opacity:0.8">${item.comment || ''}</p>
+                                <div style="margin-top:10px; font-size:0.9rem; color:var(--accent)">
+                                    ${item.items ? 'Items: ' + item.items.join(', ') : ''}
+                                </div>`;
             lightbox.style.display = 'flex';
             document.body.style.overflow = 'hidden';
         }
@@ -426,15 +510,11 @@
             document.body.style.overflow = 'auto';
         }
 
-        document.getElementById('lightbox').addEventListener('click', function (e) {
-            if (e.target === this) closeLightbox();
+        document.getElementById('lightbox').addEventListener('click', (e) => {
+            if (e.target.id === 'lightbox') closeLightbox();
         });
 
         init();
     </script>
-
-
-
 </body>
-
 </html>

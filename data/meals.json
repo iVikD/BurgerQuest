@@ -33,7 +33,7 @@
     "rating": 8,
     "price": 19.9,
     "is_burger": false,
-    "comment": "Mexican BirrierÃ­a. Multiple tacos and appetizers.",
+    "comment": "Mexican Birriería. Multiple tacos and appetizers.",
     "items": [
       "nachos",
       "tacos tres carnes",
@@ -77,7 +77,7 @@
     ]
   },
   {
-    "name": "Fosterâ€™s",
+    "name": "Foster's",
     "category": "burger",
     "rating": 4,
     "price": 17.95,
