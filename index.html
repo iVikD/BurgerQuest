@@ -248,7 +248,7 @@
                 <canvas id="battleChart" style="max-height: 250px;"></canvas>
             </div>
             <div class="chart-container">
-                <h2 style="margin-top:0">📊 Persona Avg Rating</h2>
+                <h2 style="margin-top:0">📊 Personal Avg Rating</h2>
                 <canvas id="ratingChart" style="max-height: 250px;"></canvas>
             </div>
             <div class="chart-container">
@@ -321,9 +321,9 @@
                 participants.forEach(p => {
                     if (!userStats[p]) userStats[p] = { count: 0, totalRating: 0, burgers: 0 };
                     userStats[p].count++;
+                    userStats[p].totalRating += m.rating;
                     if (m.is_burger) {
                         userStats[p].burgers++;
-                        userStats[p].totalRating += m.rating;
                     }
                 });
             });
@@ -381,8 +381,8 @@
         }
 
         function initRatingChart(userStats) {
-            const users = Object.keys(userStats).filter(u => userStats[u].burgers > 0);
-            const data = users.map(u => (userStats[u].totalRating / userStats[u].burgers).toFixed(2));
+            const users = Object.keys(userStats).filter(u => userStats[u].count > 0);
+            const data = users.map(u => (userStats[u].totalRating / userStats[u].count).toFixed(2));
 
             if (ratingChart) ratingChart.destroy();
             ratingChart = new Chart(document.getElementById('ratingChart'), {
@@ -390,7 +390,7 @@
                 data: {
                     labels: users,
                     datasets: [{
-                        label: 'Avg Burger Rating',
+                        label: 'Avg Meal Rating',
                         data: data,
                         backgroundColor: '#f59e0b'
                     }]
