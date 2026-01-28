@@ -53,6 +53,7 @@
     "category": "burger",
     "rating": 7,
     "price": 11.9,
+    "price": 11.9,
     "is_burger": true,
     "comment": "Normal cheeseburger. Delivery.",
     "items": [
