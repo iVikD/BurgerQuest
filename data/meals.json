@@ -33,7 +33,7 @@
     "rating": 8,
     "price": 19.9,
     "is_burger": false,
-    "comment": "Mexican Birriería. Multiple tacos and appetizers.",
+    "comment": "Mexican Birrier\u00eda. Multiple tacos and appetizers.",
     "items": [
       "nachos",
       "tacos tres carnes",
@@ -159,7 +159,7 @@
     "comment": "Terrible smash burger experience.",
     "items": [
       "2x smash burger",
-      "tequeÃ±os"
+      "teque\u00c3\u00b1os"
     ],
     "sender": "Jaqueline",
     "timestamp": "2026-01-25T11:22:46",
@@ -243,7 +243,33 @@
     "image_path": "assets/images/AQADlQxrG7dV2Ed-.jpg",
     "gps": null,
     "participants": [
-      "Victor", "Jaqueline"
+      "Victor",
+      "Jaqueline"
     ]
+  },
+  {
+    "name": "Burger King",
+    "category": "burger",
+    "rating": 7,
+    "price": 6.0,
+    "is_burger": true,
+    "comment": "Crispy chicken burger with tomato and lettuce",
+    "items": [
+      "burger",
+      "chicken",
+      "lettuce",
+      "tomato"
+    ],
+    "participants": [
+      "Victor"
+    ],
+    "sender": "Victor",
+    "msg_id": 13,
+    "timestamp": "2026-01-28T18:54:16+00:00",
+    "image_paths": [
+      "assets/images/AQADlAxrG7dV2Ed9.jpg"
+    ],
+    "image_path": "assets/images/AQADlAxrG7dV2Ed9.jpg",
+    "gps": null
   }
 ]
