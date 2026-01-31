@@ -271,5 +271,30 @@
     ],
     "image_path": "assets/images/AQADlAxrG7dV2Ed9.jpg",
     "gps": null
+  },
+  {
+    "name": "Kebab Congosto",
+    "category": "other",
+    "rating": 8,
+    "price": 8,
+    "is_burger": false,
+    "comment": "Mixed durum with spicy sauce, first time trying this sauce, pretty good, good quality for delivery, not too big",
+    "items": [
+      "Mixed durum with spicy sauce",
+      "fries"
+    ],
+    "participants": [
+      "Victor"
+    ],
+    "sender": "Victor",
+    "msg_id": 14,
+    "timestamp": "2026-01-30T22:12:55+00:00",
+    "image_paths": [
+      "assets/images/AQADVwtrG70e8Ed-.jpg",
+      "assets/images/AQADWAtrG70e8Ed-.jpg",
+      "assets/images/AQADWQtrG70e8Ed-.jpg"
+    ],
+    "image_path": "assets/images/AQADVwtrG70e8Ed-.jpg",
+    "gps": null
   }
 ]
