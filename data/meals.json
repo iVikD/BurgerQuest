@@ -296,5 +296,33 @@
     ],
     "image_path": "assets/images/AQADVwtrG70e8Ed-.jpg",
     "gps": null
+  },
+  {
+    "name": "Matako",
+    "category": "other",
+    "rating": 5,
+    "price": 20,
+    "is_burger": false,
+    "comment": "Amazing as always, favorite place",
+    "items": [
+      "Pecado",
+      "Ensalada Neptuno",
+      "crazy crab",
+      "sprite"
+    ],
+    "participants": [
+      "person1",
+      "person2",
+      "Jaque"
+    ],
+    "sender": "Jaque",
+    "msg_id": 17,
+    "timestamp": "2026-01-31T23:05:06+00:00",
+    "image_paths": [
+      "assets/images/AQADugtrG6ig-Ud-.jpg",
+      "assets/images/AQADuwtrG6ig-Ud9.jpg"
+    ],
+    "image_path": "assets/images/AQADugtrG6ig-Ud-.jpg",
+    "gps": null
   }
 ]
