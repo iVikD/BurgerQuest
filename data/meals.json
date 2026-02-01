@@ -241,24 +241,24 @@
       "assets/images/AQADlAxrG7dV2Ed9.jpg"
     ],
     "image_path": "assets/images/AQADlQxrG7dV2Ed-.jpg",
-    "gps": null,
+    "gps": {
+      "lat": 40.54112220113143,
+      "lng": -3.45672470774511
+    },
     "participants": [
       "Victor",
       "Jaqueline"
     ]
   },
   {
-    "name": "Burger King",
+    "name": "Burger King Daganzo",
     "category": "burger",
     "rating": 4,
     "price": 6.0,
     "is_burger": true,
     "comment": "Crispy chicken burger with tomato and lettuce",
     "items": [
-      "burger",
-      "chicken",
-      "lettuce",
-      "tomato"
+      "Crispy Chicken"
     ],
     "participants": [
       "Victor"
@@ -270,7 +270,10 @@
       "assets/images/AQADlAxrG7dV2Ed9.jpg"
     ],
     "image_path": "assets/images/AQADlAxrG7dV2Ed9.jpg",
-    "gps": null
+    "gps": {
+      "lat": 40.54112220113143,
+      "lng": -3.45672470774511
+    }
   },
   {
     "name": "Kebab Congosto",
@@ -295,7 +298,10 @@
       "assets/images/AQADWQtrG70e8Ed-.jpg"
     ],
     "image_path": "assets/images/AQADVwtrG70e8Ed-.jpg",
-    "gps": null
+    "gps": {
+      "lat": 40.37355077289631,
+      "lng": -3.61916389958217
+    }
   },
   {
     "name": "Matako",
@@ -322,6 +328,9 @@
       "assets/images/AQADuwtrG6ig-Ud9.jpg"
     ],
     "image_path": "assets/images/AQADugtrG6ig-Ud-.jpg",
-    "gps": null
+    "gps": {
+      "lat": 40.430188078856894,
+      "lng": -3.7012082629977527
+    }
   }
 ]
