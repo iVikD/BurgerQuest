@@ -27,7 +27,7 @@ Return ONLY a JSON object with:
 {
   "name": "restaurant name",
   "category": "burger" or "other",
-  "rating": 1-10,
+  "rating": 1-5,
   "price": number,
   "is_burger": boolean,
   "comment": "short summary",

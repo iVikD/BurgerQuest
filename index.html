@@ -399,7 +399,7 @@
                     plugins: { legend: { display: false } },
                     scales: {
                         x: { ticks: { color: '#f8fafc' } },
-                        y: { min: 0, max: 10, ticks: { color: '#f8fafc' } }
+                        y: { min: 0, max: 5, ticks: { color: '#f8fafc' } }
                     }
                 }
             });
@@ -439,7 +439,7 @@
                     const imgHtml = item.image_path ? `<img src="${item.image_path}" style="width:120px; border-radius:4px; margin-top:8px; display:block;">` : '';
                     L.marker([item.gps.lat, item.gps.lng])
                         .addTo(map)
-                        .bindPopup(`<b>${item.name}</b><br>Rating: ${item.rating}/10<br>${imgHtml}`);
+                        .bindPopup(`<b>${item.name}</b><br>Rating: ${item.rating}/5<br>${imgHtml}`);
                 }
             });
             const points = meals.filter(i => i.gps?.lat).map(i => [i.gps.lat, i.gps.lng]);
@@ -475,7 +475,7 @@
                     <div class="food-info">
                         <div style="display:flex; justify-content:space-between; align-items:start;">
                             <h3 style="margin:0; font-size:1.1rem; flex:1;">${item.name}</h3>
-                            <span class="rating-badge">${item.rating}/10</span>
+                            <span class="rating-badge">${item.rating}/5</span>
                         </div>
                         <p style="font-size:0.85rem; color:var(--muted); margin:10px 0 15px 0; height: 2.5em; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">${item.comment || ''}</p>
                         <div style="display:flex; justify-content:space-between; font-size:0.85rem; border-top:1px solid #334155; padding-top:12px;">
