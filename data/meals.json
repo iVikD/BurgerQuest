@@ -332,5 +332,31 @@
       "lat": 40.430188078856894,
       "lng": -3.7012082629977527
     }
+  },
+  {
+    "name": "Burger King",
+    "category": "burger",
+    "rating": 3,
+    "price": 17,
+    "is_burger": true,
+    "comment": "Burger King meal with burgers, chicken, and onion rings.",
+    "items": [
+      "big king menu",
+      "2 crispy chickens",
+      "onion rings",
+      "coke"
+    ],
+    "participants": [
+      "person 1",
+      "Jaque"
+    ],
+    "sender": "Jaque",
+    "msg_id": 19,
+    "timestamp": "2026-02-05T17:54:12+00:00",
+    "image_paths": [
+      "assets/images/AQADoQtrG1gyKER-.jpg"
+    ],
+    "image_path": "assets/images/AQADoQtrG1gyKER-.jpg",
+    "gps": null
   }
 ]
