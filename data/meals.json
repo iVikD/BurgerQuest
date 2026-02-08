@@ -384,5 +384,31 @@
     ],
     "image_path": "assets/images/AQADewtrG8BBMER-.jpg",
     "gps": null
+  },
+  {
+    "name": "Cuore Napoli Pizzeria",
+    "category": "other",
+    "rating": 4,
+    "price": 30,
+    "is_burger": false,
+    "comment": "Pizza crudo and diavola plus, with homemade cheesecake, coke and 7up.",
+    "items": [
+      "pizza crudo",
+      "diavola plus",
+      "homemade cheesecake",
+      "coke",
+      "7up"
+    ],
+    "participants": [
+      "Jaque"
+    ],
+    "sender": "Jaque",
+    "msg_id": 21,
+    "timestamp": "2026-02-07T23:13:11+00:00",
+    "image_paths": [
+      "assets/images/AQADXQtrG93VQUR-.jpg"
+    ],
+    "image_path": "assets/images/AQADXQtrG93VQUR-.jpg",
+    "gps": null
   }
 ]
