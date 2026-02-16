@@ -410,5 +410,33 @@
     ],
     "image_path": "assets/images/AQADXQtrG93VQUR-.jpg",
     "gps": null
+  },
+  {
+    "name": "Fellina Chamberi",
+    "category": "other",
+    "rating": 5,
+    "price": 84.0,
+    "is_burger": false,
+    "comment": "Amazing food and beautiful place, everything was good",
+    "items": [
+      "Carpaccio de ternera",
+      "Pizza Diavola",
+      "Tortellini de burrada y trufa",
+      "2x coca cola",
+      "2x sprite"
+    ],
+    "participants": [
+      "Jaque"
+    ],
+    "sender": "Jaque",
+    "msg_id": 22,
+    "timestamp": "2026-02-15T20:19:38+00:00",
+    "image_paths": [
+      "assets/images/AQADeg1rG63WkER-.jpg",
+      "assets/images/AQADeQ1rG63WkER-.jpg",
+      "assets/images/AQADeA1rG63WkER-.jpg"
+    ],
+    "image_path": "assets/images/AQADeg1rG63WkER-.jpg",
+    "gps": null
   }
 ]
