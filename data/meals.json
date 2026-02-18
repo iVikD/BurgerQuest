@@ -438,5 +438,30 @@
     ],
     "image_path": "assets/images/AQADeg1rG63WkER-.jpg",
     "gps": null
+  },
+  {
+    "name": "Burger King",
+    "category": "burger",
+    "rating": 3,
+    "price": 14,
+    "is_burger": true,
+    "comment": "Burger King meal with Big King and crispy chicken.",
+    "items": [
+      "big king combo",
+      "crispy chicken combo",
+      "single crispy chicken"
+    ],
+    "participants": [
+      "Jaque"
+    ],
+    "sender": "Jaque",
+    "msg_id": 25,
+    "timestamp": "2026-02-17T21:01:32+00:00",
+    "image_paths": [
+      "assets/images/AQADVA1rGywnoUR-.jpg",
+      "assets/images/AQADVQ1rGywnoUR-.jpg"
+    ],
+    "image_path": "assets/images/AQADVA1rGywnoUR-.jpg",
+    "gps": null
   }
 ]
