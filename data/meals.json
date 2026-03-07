@@ -463,5 +463,55 @@
     ],
     "image_path": "assets/images/AQADVA1rGywnoUR-.jpg",
     "gps": null
+  },
+  {
+    "name": "BBQ Burger Madrid",
+    "category": "burger",
+    "rating": 4,
+    "price": 15.5,
+    "is_burger": true,
+    "comment": "Oklahoma Burger with fries",
+    "items": [
+      "Oklahoma Burger",
+      "fries"
+    ],
+    "participants": [
+      "Victor"
+    ],
+    "sender": "Victor",
+    "msg_id": 27,
+    "timestamp": "2026-03-06T14:42:34+00:00",
+    "image_paths": [
+      "assets/images/AQADbAtrG-53WEV9.jpg"
+    ],
+    "image_path": "assets/images/AQADbAtrG-53WEV9.jpg",
+    "gps": null
+  },
+  {
+    "name": "Five Guys",
+    "category": "burger",
+    "rating": 5,
+    "price": 29,
+    "is_burger": true,
+    "comment": "Five Guys meal with burger, fries and drink",
+    "items": [
+      "little cheeseburger",
+      "cheeseburger",
+      "cajun fries medium",
+      "drink"
+    ],
+    "participants": [
+      "person 1",
+      "person 2",
+      "Jaque"
+    ],
+    "sender": "Jaque",
+    "msg_id": 28,
+    "timestamp": "2026-03-06T14:43:45+00:00",
+    "image_paths": [
+      "assets/images/AQADbQtrG-53WEV-.jpg"
+    ],
+    "image_path": "assets/images/AQADbQtrG-53WEV-.jpg",
+    "gps": null
   }
 ]
