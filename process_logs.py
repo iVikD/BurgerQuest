@@ -14,6 +14,13 @@ TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN")
 GEMINI_KEY = os.environ.get("GEMINI_KEY")
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
 MODEL_ID = 'gemini-2.0-flash'
+STATE_PATH = 'data/scraper_state.json'
+
+# Map short/nickname forms to canonical names. Update when new users join.
+NAME_MAP = {"Jaque": "Jaqueline"}
+
+# Valid participant names. Gemini-returned names not in this set are filtered out.
+VALID_NAMES = {"Victor", "Jaqueline"}
 
 if not all([TELEGRAM_TOKEN, TELEGRAM_CHAT_ID, GEMINI_KEY]):
     print("❌ ERROR: Missing one or more environment variables.")
@@ -28,13 +35,14 @@ Return ONLY a JSON object with:
   "name": "restaurant name",
   "category": "burger" or "other",
   "rating": 1-5,
-  "price": number,
+  "price": total price paid for the entire order in EUR (not per-person),
   "is_burger": boolean,
   "comment": "short summary",
   "items": ["list", "of", "items"],
   "participants": ["list", "of", "people", "who", "ate"]
 }
 If the message or context implies the meal was shared (e.g., "we", "us", "together", or naming multiple people), include all of them in "participants".
+The "price" should always be the TOTAL bill amount, not the per-person split.
 """
 
 
@@ -61,15 +69,36 @@ def get_gps_location(file_path):
                 if gps_info.get("GPSLatitudeRef") == "S": lat = -lat
                 if gps_info.get("GPSLongitudeRef") == "W": lng = -lng
                 return {"lat": lat, "lng": lng}
-    except Exception: return None
+    except Exception as e:
+        print(f"⚠️ Warning: Could not extract GPS from {file_path}: {e}")
+        return None
     return None
+
+
+def load_state():
+    if os.path.exists(STATE_PATH):
+        try:
+            with open(STATE_PATH, 'r') as f:
+                return json.load(f)
+        except (json.JSONDecodeError, IOError):
+            pass
+    return {}
+
+
+def save_state(state):
+    with open(STATE_PATH, 'w') as f:
+        json.dump(state, f, indent=2)
 
 
 async def main():
     print("Starting scraper...")
     bot = Bot(token=TELEGRAM_TOKEN)
-    updates = await bot.get_updates()
-    print(f"DEBUG: Found {len(updates)} updates from Telegram.") 
+
+    state = load_state()
+    last_update_id = state.get('last_update_id')
+    offset = last_update_id + 1 if last_update_id else None
+    updates = await bot.get_updates(offset=offset)
+    print(f"DEBUG: Found {len(updates)} updates from Telegram.")
 
     os.makedirs("data", exist_ok=True)
     os.makedirs("assets/images", exist_ok=True)
@@ -80,10 +109,18 @@ async def main():
         try:
             with open(db_path, 'r') as f:
                 db = json.load(f)
-        except: db = []
+        except (json.JSONDecodeError, IOError) as e:
+            print(f"⚠️ Warning: Could not load {db_path}, starting fresh: {e}")
+            db = []
     else: db = []
 
-    processed_ids = {entry.get('msg_id') for entry in db}
+    # Build processed IDs from both legacy msg_id and new msg_ids list
+    processed_ids = set()
+    for entry in db:
+        if 'msg_ids' in entry:
+            processed_ids.update(entry['msg_ids'])
+        if 'msg_id' in entry:
+            processed_ids.add(entry['msg_id'])
 
     # --- BUFFERING LOGIC ---
     # Group messages by media_group_id to save Gemini costs
@@ -106,6 +143,7 @@ async def main():
         #Only take the first part of the name
         full_name = main_msg.from_user.first_name if main_msg.from_user else "Unknown Hunter"
         sender = full_name.split()[0]
+        sender = NAME_MAP.get(sender, sender)
 
         # Extract full text from all messages in group
         combined_text = " ".join(
@@ -122,8 +160,11 @@ async def main():
 
         # Call Gemini with all photos at once
         contents = [combined_text]
+        opened_images = []
         for p in data["paths"]:
-            contents.append(Image.open(p))
+            img = Image.open(p)
+            opened_images.append(img)
+            contents.append(img)
 
         try:
             response = client.models.generate_content(
@@ -136,15 +177,22 @@ async def main():
             )
 
             entry = json.loads(response.text)
-            
+
             # Ensure sender is always in participants if Gemini missed it
             if 'participants' not in entry or not isinstance(entry['participants'], list):
                 entry['participants'] = [sender]
             elif sender not in entry['participants']:
                 entry['participants'].append(sender)
-                
+
+            # Normalize participant names and filter out hallucinations
+            entry['participants'] = [NAME_MAP.get(p, p) for p in entry['participants']]
+            entry['participants'] = [p for p in entry['participants'] if p in VALID_NAMES]
+            if sender not in entry['participants']:
+                entry['participants'].append(sender)
+
             entry['sender'] = sender
             entry['msg_id'] = main_msg.message_id
+            entry['msg_ids'] = [m.message_id for m in data["msgs"]]
             entry['timestamp'] = main_msg.date.isoformat()
             # Store all paths for the dashboard gallery
             entry['image_paths'] = data["paths"]
@@ -159,10 +207,18 @@ async def main():
 
         except Exception as e:
             print(f"⚠️ Error processing group {group_id}: {e}")
+        finally:
+            for img in opened_images:
+                img.close()
 
     # Save final DB
     with open(db_path, 'w') as f:
         json.dump(db, f, indent=2)
+
+    # Persist Telegram offset for next run
+    if updates:
+        state['last_update_id'] = max(u.update_id for u in updates)
+        save_state(state)
 
 if __name__ == "__main__":
     asyncio.run(main())

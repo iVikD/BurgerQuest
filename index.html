@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="BurgerQuest Dashboard">
+    <meta property="og:description" content="Personal burger and food tracking dashboard with ratings, maps, and charts.">
+    <meta property="og:type" content="website">
     <title>BurgerQuest Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -54,7 +57,7 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s;
         }
-        
+
         .stat-card:hover {
             transform: translateY(-2px);
         }
@@ -103,14 +106,22 @@
             margin: 40px 0 20px 0;
         }
 
+        .gallery-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
         .search-box {
             background: var(--card);
             border: 1px solid #334155;
             padding: 10px 15px;
             border-radius: 8px;
             color: white;
-            width: 300px;
+            width: 100%;
+            max-width: 300px;
             font-size: 0.9rem;
+            box-sizing: border-box;
         }
 
         /* Burger Gallery */
@@ -142,6 +153,78 @@
             background: #334155;
         }
 
+        .food-img-wrapper {
+            position: relative;
+        }
+
+        .participant-overlay {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            z-index: 5;
+        }
+
+        .photo-count-badge {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.7);
+            padding: 2px 8px;
+            font-size: 11px;
+            border-radius: 4px;
+        }
+
+        .food-img-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1e293b;
+            color: #475569;
+        }
+
+        .food-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+        }
+
+        .food-title {
+            margin: 0;
+            font-size: 1.1rem;
+            flex: 1;
+        }
+
+        .food-comment {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin: 10px 0 15px 0;
+            height: 2.5em;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .food-footer {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            border-top: 1px solid #334155;
+            padding-top: 12px;
+        }
+
+        .food-price {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .food-date {
+            color: var(--muted);
+        }
+
         .food-info {
             padding: 20px;
         }
@@ -167,6 +250,14 @@
             border: 1px solid rgba(255,255,255,0.1);
         }
 
+        /* Empty state */
+        #empty-state {
+            display: none;
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--muted);
+        }
+
         /* Leaflet Popup Fix */
         .leaflet-popup-content-wrapper {
             background: white !important;
@@ -176,43 +267,77 @@
 
         /* Lightbox */
         #lightbox {
-            display:none; 
-            position:fixed; 
-            z-index:10000; 
-            top:0; left:0; width:100%; height:100%; 
-            background:rgba(15, 23, 42, 0.98); 
-            justify-content:center; 
-            align-items:center; 
+            display:none;
+            position:fixed;
+            z-index:10000;
+            top:0; left:0; width:100%; height:100%;
+            background:rgba(15, 23, 42, 0.98);
+            justify-content:center;
+            align-items:center;
             flex-direction:column;
             backdrop-filter: blur(8px);
         }
 
         #lightbox-content {
-            max-width:90%; 
-            max-height:80vh; 
-            display:flex; 
-            gap:15px; 
-            overflow-x:auto; 
+            max-width:90%;
+            max-height:80vh;
+            display:flex;
+            gap:15px;
+            overflow-x:auto;
             padding:20px;
             scroll-snap-type: x mandatory;
         }
 
         #lightbox-content img {
-            height:75vh; 
-            border-radius:12px; 
-            object-fit:contain; 
+            height:75vh;
+            border-radius:12px;
+            object-fit:contain;
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
             scroll-snap-align: center;
         }
 
         .close-btn {
-            position:absolute; 
-            top:25px; 
-            right:35px; 
-            color:white; 
-            font-size:40px; 
+            position:absolute;
+            top:25px;
+            right:35px;
+            color:white;
+            font-size:40px;
             cursor:pointer;
             line-height: 1;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+
+            .gallery-header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+
+            .gallery-controls {
+                flex-direction: column;
+            }
+
+            .search-box {
+                max-width: 100%;
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            #map { height: 300px; }
+
+            #lightbox-content {
+                max-width: 100%;
+                padding: 10px;
+            }
+
+            #lightbox-content img {
+                height: 60vh;
+                min-width: 85vw;
+            }
         }
     </style>
 </head>
@@ -220,8 +345,13 @@
 <body>
     <div class="container">
         <header>
-            <h1>🍔 BurgerQuest <small style="font-weight: 300; opacity: 0.6;">2026</small></h1>
+            <h1>🍔 BurgerQuest <small id="quest-year" style="font-weight: 300; opacity: 0.6;"></small></h1>
         </header>
+
+        <div id="empty-state">
+            <h2>No meals logged yet</h2>
+            <p>Start sending food photos to your Telegram chat!</p>
+        </div>
 
         <div class="stats-row">
             <div class="stat-card">
@@ -261,7 +391,17 @@
 
         <div class="gallery-header">
             <h2>🍔 The Burger Gallery</h2>
-            <input type="text" class="search-box" id="search-input" placeholder="Search by name, place, or comment...">
+            <div class="gallery-controls">
+                <select id="sort-select" class="search-box" style="width:auto; cursor:pointer;">
+                    <option value="date-desc">Newest first</option>
+                    <option value="date-asc">Oldest first</option>
+                    <option value="rating-desc">Highest rated</option>
+                    <option value="rating-asc">Lowest rated</option>
+                    <option value="price-desc">Most expensive</option>
+                    <option value="price-asc">Cheapest</option>
+                </select>
+                <input type="text" class="search-box" id="search-input" placeholder="Search by name, place, or comment...">
+            </div>
         </div>
         <div class="burger-grid" id="burger-gallery"></div>
 
@@ -284,34 +424,69 @@
         async function init() {
             try {
                 const res = await fetch('./data/meals.json');
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
                 allMeals = await res.json();
-                
+
+                if (!Array.isArray(allMeals) || allMeals.length === 0) {
+                    document.getElementById('empty-state').style.display = 'block';
+                    return;
+                }
+
                 updateDashboard();
 
-                // Setup search
-                document.getElementById('search-input').addEventListener('input', (e) => {
-                    const term = e.target.value.toLowerCase();
-                    const filteredBurgers = allMeals.filter(m => m.is_burger && (
-                        m.name.toLowerCase().includes(term) || 
-                        (m.comment && m.comment.toLowerCase().includes(term)) ||
-                        (m.items && m.items.some(i => i.toLowerCase().includes(term)))
-                    ));
-                    renderGallery(filteredBurgers, 'burger-gallery');
-                });
+                // Setup search + sort
+                document.getElementById('search-input').addEventListener('input', refreshGalleries);
+                document.getElementById('sort-select').addEventListener('change', refreshGalleries);
 
             } catch (error) {
                 console.error("Critical Error loading dashboard:", error);
+                const emptyState = document.getElementById('empty-state');
+                emptyState.innerHTML = '<h2>Could not load meal data</h2><p>Check the console for details.</p>';
+                emptyState.style.display = 'block';
+            }
+        }
+
+        function refreshGalleries() {
+            const term = document.getElementById('search-input').value.toLowerCase();
+            const sortKey = document.getElementById('sort-select').value;
+
+            const matchesSearch = (m) =>
+                m.name.toLowerCase().includes(term) ||
+                (m.comment && m.comment.toLowerCase().includes(term)) ||
+                (m.items && m.items.some(i => i.toLowerCase().includes(term)));
+
+            const filteredBurgers = sortMeals(allMeals.filter(m => m.is_burger && matchesSearch(m)), sortKey);
+            renderGallery(filteredBurgers, 'burger-gallery');
+
+            const filteredOther = sortMeals(allMeals.filter(m => !m.is_burger && matchesSearch(m)), sortKey);
+            renderGallery(filteredOther, 'other-gallery');
+        }
+
+        function sortMeals(meals, sortKey) {
+            const sorted = [...meals];
+            switch(sortKey) {
+                case 'date-desc': return sorted.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+                case 'date-asc': return sorted.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+                case 'rating-desc': return sorted.sort((a, b) => b.rating - a.rating);
+                case 'rating-asc': return sorted.sort((a, b) => a.rating - b.rating);
+                case 'price-desc': return sorted.sort((a, b) => (b.price || 0) - (a.price || 0));
+                case 'price-asc': return sorted.sort((a, b) => (a.price || 0) - (b.price || 0));
+                default: return sorted;
             }
         }
 
         function updateDashboard() {
             const burgers = allMeals.filter(m => m.is_burger);
-            
+
+            // Dynamic year from data
+            const years = allMeals.map(m => new Date(m.timestamp).getFullYear());
+            document.getElementById('quest-year').textContent = years.length > 0 ? Math.max(...years) : new Date().getFullYear();
+
             // --- Stats ---
             document.getElementById('b-total').innerText = burgers.length;
             const avg = burgers.reduce((acc, b) => acc + b.rating, 0) / (burgers.length || 1);
             document.getElementById('b-avg').innerText = avg.toFixed(1);
-            
+
             const spent = allMeals.reduce((acc, m) => acc + (m.price || 0), 0);
             document.getElementById('total-spent').innerText = spent.toFixed(2) + '€';
 
@@ -339,9 +514,9 @@
             // --- Map ---
             initMap(allMeals);
 
-            // --- Galleries ---
-            renderGallery(burgers, 'burger-gallery');
-            renderGallery(allMeals.filter(m => !m.is_burger), 'other-gallery');
+            // --- Galleries (default sort: newest first) ---
+            renderGallery(sortMeals(burgers, 'date-desc'), 'burger-gallery');
+            renderGallery(sortMeals(allMeals.filter(m => !m.is_burger), 'date-desc'), 'other-gallery');
         }
 
         function initBattleChart(burgers) {
@@ -358,7 +533,7 @@
 
             const labels = Object.keys(monthlyData);
             const users = [...new Set(burgers.flatMap(b => b.participants || [b.sender]))];
-            const colors = ['#f59e0b', '#10b981', '#3b82f6', '#8b5cf6'];
+            const colors = ['#f59e0b', '#10b981', '#3b82f6', '#8b5cf6', '#ec4899', '#f43f5e', '#06b6d4', '#84cc16'];
 
             const datasets = users.map((u, i) => ({
                 label: u,
@@ -431,7 +606,7 @@
         function initMap(meals) {
             const container = L.DomUtil.get('map');
             if(container != null){ container._leaflet_id = null; }
-            const map = L.map('map').setView([40.4168, -3.7038], 11);
+            const map = L.map('map');
             L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { attribution: '©OSM' }).addTo(map);
 
             meals.forEach(item => {
@@ -443,44 +618,48 @@
                 }
             });
             const points = meals.filter(i => i.gps?.lat).map(i => [i.gps.lat, i.gps.lng]);
-            if (points.length > 0) map.fitBounds(points, { padding: [50, 50] });
+            if (points.length > 0) {
+                map.fitBounds(points, { padding: [50, 50] });
+            } else {
+                map.setView([40.4168, -3.7038], 11);
+            }
         }
 
         function renderGallery(items, containerId) {
             const container = document.getElementById(containerId);
             container.innerHTML = '';
 
-            items.slice().reverse().forEach(item => {
+            items.forEach(item => {
                 const participants = item.participants || [item.sender];
                 const allImages = item.image_paths || [];
                 const displayImg = item.image_path || (allImages.length > 0 ? allImages[0] : null);
 
                 const imgHtml = displayImg
                     ? `<img src="${displayImg}" class="food-img" loading="lazy">`
-                    : `<div class="food-img" style="display:flex; align-items:center; justify-content:center; background:#1e293b; color:#475569;">📸 No Photo</div>`;
+                    : `<div class="food-img food-img-placeholder">📸 No Photo</div>`;
 
-                const photoBadge = allImages.length > 1 ? `<div style="position:absolute; bottom:10px; right:10px; background:rgba(0,0,0,0.7); padding:2px 8px; font-size:11px; border-radius:4px;">+${allImages.length - 1}</div>` : '';
+                const photoBadge = allImages.length > 1 ? `<div class="photo-count-badge">+${allImages.length - 1}</div>` : '';
 
                 const card = document.createElement('div');
                 card.className = 'food-card';
                 card.onclick = () => openLightbox(item);
                 card.innerHTML = `
-                    <div style="position:relative;">
-                        <div style="position:absolute; top:10px; left:10px; display:flex; flex-wrap:wrap; gap:4px; z-index:5;">
+                    <div class="food-img-wrapper">
+                        <div class="participant-overlay">
                             ${participants.map(p => `<span class="participant-tag">👤 ${p}</span>`).join('')}
                         </div>
                         ${photoBadge}
                         ${imgHtml}
                     </div>
                     <div class="food-info">
-                        <div style="display:flex; justify-content:space-between; align-items:start;">
-                            <h3 style="margin:0; font-size:1.1rem; flex:1;">${item.name}</h3>
+                        <div class="food-header">
+                            <h3 class="food-title">${item.name}</h3>
                             <span class="rating-badge">${item.rating}/5</span>
                         </div>
-                        <p style="font-size:0.85rem; color:var(--muted); margin:10px 0 15px 0; height: 2.5em; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">${item.comment || ''}</p>
-                        <div style="display:flex; justify-content:space-between; font-size:0.85rem; border-top:1px solid #334155; padding-top:12px;">
-                            <span style="color:var(--accent); font-weight:bold;">${item.price > 0 ? item.price + '€' : 'Price N/A'}</span>
-                            <span style="color:var(--muted);">${new Date(item.timestamp).toLocaleDateString()}</span>
+                        <p class="food-comment">${item.comment || ''}</p>
+                        <div class="food-footer">
+                            <span class="food-price">${item.price > 0 ? item.price + '€' : 'Price N/A'}</span>
+                            <span class="food-date">${new Date(item.timestamp).toLocaleDateString()}</span>
                         </div>
                     </div>`;
                 container.appendChild(card);
@@ -496,11 +675,16 @@
             const images = item.image_paths?.length ? item.image_paths : (item.image_path ? [item.image_path] : []);
             images.forEach(src => container.innerHTML += `<img src="${src}">`);
 
+            let swipeHint = '';
+            if (images.length > 1) {
+                swipeHint = '<p id="swipe-hint" style="color:var(--muted); font-size:0.8rem; margin-top:5px;">← Swipe to see more photos →</p>';
+            }
+
             caption.innerHTML = `<h2 style="margin:0 0 5px 0">${item.name}</h2>
                                 <p style="margin:0; opacity:0.8">${item.comment || ''}</p>
                                 <div style="margin-top:10px; font-size:0.9rem; color:var(--accent)">
                                     ${item.items ? 'Items: ' + item.items.join(', ') : ''}
-                                </div>`;
+                                </div>${swipeHint}`;
             lightbox.style.display = 'flex';
             document.body.style.overflow = 'hidden';
         }
@@ -512,6 +696,10 @@
 
         document.getElementById('lightbox').addEventListener('click', (e) => {
             if (e.target.id === 'lightbox') closeLightbox();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
         });
 
         init();

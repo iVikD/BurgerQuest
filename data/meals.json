@@ -251,31 +251,6 @@
     ]
   },
   {
-    "name": "Burger King Daganzo",
-    "category": "burger",
-    "rating": 4,
-    "price": 6.0,
-    "is_burger": true,
-    "comment": "Crispy chicken burger with tomato and lettuce",
-    "items": [
-      "Crispy Chicken"
-    ],
-    "participants": [
-      "Victor"
-    ],
-    "sender": "Victor",
-    "msg_id": 13,
-    "timestamp": "2026-01-28T18:54:16+00:00",
-    "image_paths": [
-      "assets/images/AQADlAxrG7dV2Ed9.jpg"
-    ],
-    "image_path": "assets/images/AQADlAxrG7dV2Ed9.jpg",
-    "gps": {
-      "lat": 40.54112220113143,
-      "lng": -3.45672470774511
-    }
-  },
-  {
     "name": "Kebab Congosto",
     "category": "other",
     "rating": 4,
@@ -320,7 +295,7 @@
       "Jaqueline",
       "Victor"
     ],
-    "sender": "Jaque",
+    "sender": "Jaqueline",
     "msg_id": 17,
     "timestamp": "2026-01-31T23:05:06+00:00",
     "image_paths": [
@@ -347,10 +322,9 @@
       "coke"
     ],
     "participants": [
-      "person 1",
-      "Jaque"
+      "Jaqueline"
     ],
-    "sender": "Jaque",
+    "sender": "Jaqueline",
     "msg_id": 19,
     "timestamp": "2026-02-05T17:54:12+00:00",
     "image_paths": [
@@ -372,8 +346,6 @@
       "Coleslaw"
     ],
     "participants": [
-      "person 1",
-      "person 2",
       "Victor"
     ],
     "sender": "Victor",
@@ -400,9 +372,9 @@
       "7up"
     ],
     "participants": [
-      "Jaque"
+      "Jaqueline"
     ],
-    "sender": "Jaque",
+    "sender": "Jaqueline",
     "msg_id": 21,
     "timestamp": "2026-02-07T23:13:11+00:00",
     "image_paths": [
@@ -426,9 +398,9 @@
       "2x sprite"
     ],
     "participants": [
-      "Jaque"
+      "Jaqueline"
     ],
-    "sender": "Jaque",
+    "sender": "Jaqueline",
     "msg_id": 22,
     "timestamp": "2026-02-15T20:19:38+00:00",
     "image_paths": [
@@ -452,9 +424,9 @@
       "single crispy chicken"
     ],
     "participants": [
-      "Jaque"
+      "Jaqueline"
     ],
-    "sender": "Jaque",
+    "sender": "Jaqueline",
     "msg_id": 25,
     "timestamp": "2026-02-17T21:01:32+00:00",
     "image_paths": [
@@ -501,11 +473,9 @@
       "drink"
     ],
     "participants": [
-      "person 1",
-      "person 2",
-      "Jaque"
+      "Jaqueline"
     ],
-    "sender": "Jaque",
+    "sender": "Jaqueline",
     "msg_id": 28,
     "timestamp": "2026-03-06T14:43:45+00:00",
     "image_paths": [
