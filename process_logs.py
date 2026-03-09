@@ -13,25 +13,34 @@ from PIL.ExifTags import TAGS, GPSTAGS
 TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN")
 GEMINI_KEY = os.environ.get("GEMINI_KEY")
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
+PARTICIPANT_MAP_RAW = os.environ.get("PARTICIPANT_MAP", "")
 MODEL_ID = 'gemini-2.0-flash'
 STATE_PATH = 'data/scraper_state.json'
-
-# Map short/nickname forms to canonical names. Update when new users join.
-NAME_MAP = {"Jaque": "Jaqueline"}
-
-# Valid participant names. Gemini-returned names not in this set are filtered out.
-VALID_NAMES = {"Victor", "Jaqueline"}
 
 if not all([TELEGRAM_TOKEN, TELEGRAM_CHAT_ID, GEMINI_KEY]):
     print("❌ ERROR: Missing one or more environment variables.")
     sys.exit(1)
 
+# Parse PARTICIPANT_MAP env var (format: "Jaque:J,Victor:V,Jaqueline:J")
+# Maps display names/nicknames to initials used in the data.
+NAME_MAP = {}
+for pair in PARTICIPANT_MAP_RAW.split(","):
+    pair = pair.strip()
+    if ":" in pair:
+        key, val = pair.split(":", 1)
+        NAME_MAP[key.strip()] = val.strip()
+
+# Valid participant identifiers are the unique values from the map.
+VALID_NAMES = set(NAME_MAP.values()) if NAME_MAP else set()
+
 client = genai.Client(api_key=GEMINI_KEY)
 
-SYSTEM_PROMPT = """
+VALID_NAMES_STR = ", ".join(sorted(VALID_NAMES)) if VALID_NAMES else "unknown"
+
+SYSTEM_PROMPT = f"""
 Analyze this food-related chat message and image(s).
 Return ONLY a JSON object with:
-{
+{{
   "name": "restaurant name",
   "category": "burger" or "other",
   "rating": 1-5,
@@ -40,7 +49,10 @@ Return ONLY a JSON object with:
   "comment": "short summary",
   "items": ["list", "of", "items"],
   "participants": ["list", "of", "people", "who", "ate"]
-}
+}}
+The valid participant identifiers are: {VALID_NAMES_STR}
+Use ONLY these identifiers in the "participants" list.
+If the order contains portions for multiple people (e.g., 2x items, multiple mains, multiple drinks, large total price for a single person), list all participants.
 If the message or context implies the meal was shared (e.g., "we", "us", "together", or naming multiple people), include all of them in "participants".
 The "price" should always be the TOTAL bill amount, not the per-person split.
 """
@@ -140,10 +152,9 @@ async def main():
 
     for group_id, data in groups.items():
         main_msg = data["msgs"][0]
-        #Only take the first part of the name
-        full_name = main_msg.from_user.first_name if main_msg.from_user else "Unknown Hunter"
-        sender = full_name.split()[0]
-        sender = NAME_MAP.get(sender, sender)
+        full_name = main_msg.from_user.first_name if main_msg.from_user else "Unknown"
+        first_name = full_name.split()[0]
+        sender = NAME_MAP.get(first_name, first_name[0] if first_name else "?")
 
         # Extract full text from all messages in group
         combined_text = " ".join(

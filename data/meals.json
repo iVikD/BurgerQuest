@@ -13,7 +13,7 @@
       "arroz keshmir",
       "pan naan de queso"
     ],
-    "sender": "Jaqueline",
+    "sender": "J",
     "timestamp": "2026-01-03T00:10:51",
     "image_paths": [
       "assets/images/photo_1@03-01-2026_00-10-51.jpg"
@@ -24,7 +24,8 @@
       "lng": -3.3656823788742423
     },
     "participants": [
-      "Jaqueline"
+      "J",
+      "V"
     ]
   },
   {
@@ -39,7 +40,7 @@
       "tacos tres carnes",
       "birria"
     ],
-    "sender": "Jaqueline",
+    "sender": "J",
     "timestamp": "2026-01-03T22:20:48",
     "image_paths": [
       "assets/images/photo_2@03-01-2026_22-20-48.jpg",
@@ -51,7 +52,7 @@
       "lng": -3.7061673611299844
     },
     "participants": [
-      "Jaqueline"
+      "J"
     ]
   },
   {
@@ -64,7 +65,7 @@
     "items": [
       "Vicio Originals Cheeseburger"
     ],
-    "sender": "Victor",
+    "sender": "V",
     "timestamp": "2026-01-03T22:24:38",
     "image_paths": [],
     "image_path": null,
@@ -73,7 +74,7 @@
       "lng": -3.6660215427621985
     },
     "participants": [
-      "Victor"
+      "V"
     ]
   },
   {
@@ -86,7 +87,7 @@
     "items": [
       "smash burger"
     ],
-    "sender": "Victor",
+    "sender": "V",
     "timestamp": "2026-01-04T14:25:00",
     "image_paths": [],
     "image_path": null,
@@ -95,7 +96,7 @@
       "lng": -4.121655609186516
     },
     "participants": [
-      "Victor"
+      "V"
     ]
   },
   {
@@ -110,7 +111,7 @@
       "Curry ternera",
       "takoyaki"
     ],
-    "sender": "Jaqueline",
+    "sender": "J",
     "timestamp": "2026-01-18T17:54:31",
     "image_paths": [
       "assets/images/photo_4@18-01-2026_17-54-31.jpg"
@@ -121,7 +122,7 @@
       "lng": -3.5979332531284394
     },
     "participants": [
-      "Jaqueline"
+      "J"
     ]
   },
   {
@@ -135,7 +136,7 @@
       "Shio ramen",
       "Takoyaki"
     ],
-    "sender": "Jaqueline",
+    "sender": "J",
     "timestamp": "2026-01-21T21:15:31",
     "image_paths": [
       "assets/images/photo_5@21-01-2026_21-15-31.jpg",
@@ -147,7 +148,7 @@
       "lng": -3.679215163031378
     },
     "participants": [
-      "Jaqueline"
+      "J"
     ]
   },
   {
@@ -161,7 +162,7 @@
       "2x smash burger",
       "teque\u00f1os"
     ],
-    "sender": "Jaqueline",
+    "sender": "J",
     "timestamp": "2026-01-25T11:22:46",
     "image_paths": [
       "assets/images/photo_7@25-01-2026_11-22-46.jpg",
@@ -173,7 +174,8 @@
       "lng": -3.4601918099448468
     },
     "participants": [
-      "Jaqueline"
+      "J",
+      "V"
     ]
   },
   {
@@ -186,7 +188,7 @@
     "items": [
       "Crispy Chicken"
     ],
-    "sender": "Victor",
+    "sender": "V",
     "timestamp": "2026-01-16T22:30:31",
     "image_paths": [],
     "image_path": null,
@@ -195,7 +197,7 @@
       "lng": -3.597690706505681
     },
     "participants": [
-      "Victor"
+      "V"
     ]
   },
   {
@@ -208,7 +210,7 @@
     "items": [
       "Cheeseburger"
     ],
-    "sender": "Victor",
+    "sender": "V",
     "timestamp": "2026-01-16T13:30:31",
     "image_paths": [],
     "image_path": null,
@@ -217,7 +219,7 @@
       "lng": -3.6758202677206415
     },
     "participants": [
-      "Victor"
+      "V"
     ]
   },
   {
@@ -233,7 +235,7 @@
       "2x Crispy Chicken",
       "Onion rings"
     ],
-    "sender": "Victor",
+    "sender": "V",
     "msg_id": 12,
     "timestamp": "2026-01-28T18:54:16+00:00",
     "image_paths": [
@@ -246,8 +248,8 @@
       "lng": -3.45672470774511
     },
     "participants": [
-      "Victor",
-      "Jaqueline"
+      "V",
+      "J"
     ]
   },
   {
@@ -262,9 +264,9 @@
       "fries"
     ],
     "participants": [
-      "Victor"
+      "V"
     ],
-    "sender": "Victor",
+    "sender": "V",
     "msg_id": 14,
     "timestamp": "2026-01-30T22:12:55+00:00",
     "image_paths": [
@@ -292,10 +294,10 @@
       "sprite"
     ],
     "participants": [
-      "Jaqueline",
-      "Victor"
+      "J",
+      "V"
     ],
-    "sender": "Jaqueline",
+    "sender": "J",
     "msg_id": 17,
     "timestamp": "2026-01-31T23:05:06+00:00",
     "image_paths": [
@@ -322,9 +324,10 @@
       "coke"
     ],
     "participants": [
-      "Jaqueline"
+      "J",
+      "V"
     ],
-    "sender": "Jaqueline",
+    "sender": "J",
     "msg_id": 19,
     "timestamp": "2026-02-05T17:54:12+00:00",
     "image_paths": [
@@ -346,9 +349,9 @@
       "Coleslaw"
     ],
     "participants": [
-      "Victor"
+      "V"
     ],
-    "sender": "Victor",
+    "sender": "V",
     "msg_id": 20,
     "timestamp": "2026-02-06T13:24:29+00:00",
     "image_paths": [
@@ -372,9 +375,10 @@
       "7up"
     ],
     "participants": [
-      "Jaqueline"
+      "J",
+      "V"
     ],
-    "sender": "Jaqueline",
+    "sender": "J",
     "msg_id": 21,
     "timestamp": "2026-02-07T23:13:11+00:00",
     "image_paths": [
@@ -398,9 +402,10 @@
       "2x sprite"
     ],
     "participants": [
-      "Jaqueline"
+      "J",
+      "V"
     ],
-    "sender": "Jaqueline",
+    "sender": "J",
     "msg_id": 22,
     "timestamp": "2026-02-15T20:19:38+00:00",
     "image_paths": [
@@ -424,9 +429,10 @@
       "single crispy chicken"
     ],
     "participants": [
-      "Jaqueline"
+      "J",
+      "V"
     ],
-    "sender": "Jaqueline",
+    "sender": "J",
     "msg_id": 25,
     "timestamp": "2026-02-17T21:01:32+00:00",
     "image_paths": [
@@ -448,9 +454,9 @@
       "fries"
     ],
     "participants": [
-      "Victor"
+      "V"
     ],
-    "sender": "Victor",
+    "sender": "V",
     "msg_id": 27,
     "timestamp": "2026-03-06T14:42:34+00:00",
     "image_paths": [
@@ -473,9 +479,10 @@
       "drink"
     ],
     "participants": [
-      "Jaqueline"
+      "J",
+      "V"
     ],
-    "sender": "Jaqueline",
+    "sender": "J",
     "msg_id": 28,
     "timestamp": "2026-03-06T14:43:45+00:00",
     "image_paths": [
