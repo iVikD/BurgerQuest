@@ -35,7 +35,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add --ignore-errors data/meals.json data/scraper_state.json assets/images/
+          for f in data/meals.json data/scraper_state.json; do [ -f "$f" ] && git add "$f"; done
+          [ -d assets/images ] && git add assets/images/
           # This will show you exactly what is about to be committed in the logs
           git status 
           git diff --staged --quiet || (git commit -m "Auto-update food logs" && git push)
