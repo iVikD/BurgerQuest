@@ -490,5 +490,56 @@
     ],
     "image_path": "assets/images/AQADbQtrG-53WEV-.jpg",
     "gps": null
+  },
+  {
+    "name": "Burger King",
+    "category": "burger",
+    "rating": 3,
+    "price": 14,
+    "is_burger": true,
+    "comment": "Burger King meal with burgers and sides.",
+    "items": [
+      "big king combo",
+      "2x crispy chickens",
+      "onion rings"
+    ],
+    "participants": [
+      "J",
+      "V"
+    ],
+    "sender": "V",
+    "msg_id": 29,
+    "msg_ids": [
+      29
+    ],
+    "timestamp": "2026-03-16T13:38:00+00:00",
+    "image_paths": [],
+    "image_path": null,
+    "gps": null
+  },
+  {
+    "name": "Ramen Shifu",
+    "category": "other",
+    "rating": 4,
+    "price": 26.45,
+    "is_burger": false,
+    "comment": "Two ramen dishes ordered.",
+    "items": [
+      "Tonkotsu ramen",
+      "Spicy fried chicken ramen"
+    ],
+    "participants": [
+      "J",
+      "V"
+    ],
+    "sender": "J",
+    "msg_id": 30,
+    "msg_ids": [
+      30
+    ],
+    "timestamp": "2026-03-16T14:00:49+00:00",
+    "image_paths": [],
+    "image_path": null,
+    "gps": null
   }
 ]
