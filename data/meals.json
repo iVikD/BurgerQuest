@@ -541,5 +541,55 @@
     "image_paths": [],
     "image_path": null,
     "gps": null
+  },
+  {
+    "name": "Five guys",
+    "category": "burger",
+    "rating": 4,
+    "price": 18,
+    "is_burger": true,
+    "comment": "Burger, fries and coke",
+    "items": [
+      "little cheeseburger",
+      "fries",
+      "coke"
+    ],
+    "participants": [
+      "J"
+    ],
+    "sender": "J",
+    "msg_id": 31,
+    "msg_ids": [
+      31
+    ],
+    "timestamp": "2026-03-24T17:34:41+00:00",
+    "image_paths": [],
+    "image_path": null,
+    "gps": null
+  },
+  {
+    "name": "Work burger",
+    "category": "burger",
+    "rating": 4,
+    "price": 20,
+    "is_burger": true,
+    "comment": "Two burgers and fries",
+    "items": [
+      "burger",
+      "fries"
+    ],
+    "participants": [
+      "J",
+      "V"
+    ],
+    "sender": "J",
+    "msg_id": 32,
+    "msg_ids": [
+      32
+    ],
+    "timestamp": "2026-03-24T17:34:57+00:00",
+    "image_paths": [],
+    "image_path": null,
+    "gps": null
   }
 ]
