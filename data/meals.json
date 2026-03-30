@@ -591,5 +591,32 @@
     "image_paths": [],
     "image_path": null,
     "gps": null
+  },
+  {
+    "name": "Sandg\u00fcix",
+    "category": "burger",
+    "rating": 4,
+    "price": 30,
+    "is_burger": true,
+    "comment": "Good sandwiches and nachos, slow service.",
+    "items": [
+      "ribguix x2",
+      "nachos",
+      "sprite",
+      "coke"
+    ],
+    "participants": [
+      "J",
+      "V"
+    ],
+    "sender": "J",
+    "msg_id": 33,
+    "msg_ids": [
+      33
+    ],
+    "timestamp": "2026-03-29T13:37:20+00:00",
+    "image_paths": [],
+    "image_path": null,
+    "gps": null
   }
 ]
