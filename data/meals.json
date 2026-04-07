@@ -618,5 +618,43 @@
     "image_paths": [],
     "image_path": null,
     "gps": null
+  },
+  {
+    "name": "Taj Mahal Blue",
+    "category": "other",
+    "rating": 3,
+    "price": 56,
+    "is_burger": false,
+    "comment": "Indian restaurant. Onion baji was not good, naan bread did not taste of garlic. The chicken and lamb were good, rice was very sweet.",
+    "items": [
+      "onion baji",
+      "pan naam de ajo",
+      "pollo tikamasala",
+      "madras lamb",
+      "arroz kashmiri"
+    ],
+    "participants": [
+      "J",
+      "V"
+    ],
+    "sender": "J",
+    "msg_id": 34,
+    "msg_ids": [
+      34,
+      35,
+      36,
+      37,
+      38
+    ],
+    "timestamp": "2026-04-06T12:27:04+00:00",
+    "image_paths": [
+      "assets/images/AQADEAxrG6DdoUZ-.jpg",
+      "assets/images/AQADEQxrG6DdoUZ-.jpg",
+      "assets/images/AQADEgxrG6DdoUZ-.jpg",
+      "assets/images/AQADEwxrG6DdoUZ-.jpg",
+      "assets/images/AQADFAxrG6DdoUZ-.jpg"
+    ],
+    "image_path": "assets/images/AQADEAxrG6DdoUZ-.jpg",
+    "gps": null
   }
 ]
