@@ -656,5 +656,34 @@
     ],
     "image_path": "assets/images/AQADEAxrG6DdoUZ-.jpg",
     "gps": null
+  },
+  {
+    "name": "Terra sushi Alcal\u00e1",
+    "category": "other",
+    "rating": 3,
+    "price": 30,
+    "is_burger": false,
+    "comment": "The salmon is great and fresh. Big portions.",
+    "items": [
+      "Salmon flameado",
+      "Pack deluxe"
+    ],
+    "participants": [
+      "J",
+      "V"
+    ],
+    "sender": "J",
+    "msg_id": 39,
+    "msg_ids": [
+      39,
+      40
+    ],
+    "timestamp": "2026-04-09T09:15:34+00:00",
+    "image_paths": [
+      "assets/images/AQAD_AtrG5PtuEZ-.jpg",
+      "assets/images/AQAD_QtrG5PtuEZ-.jpg"
+    ],
+    "image_path": "assets/images/AQAD_AtrG5PtuEZ-.jpg",
+    "gps": null
   }
 ]
